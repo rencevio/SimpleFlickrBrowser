@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		944AC01E23CE0E9C009FD611 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC01D23CE0E9C009FD611 /* AppDelegate.swift */; };
-		944AC02023CE0E9C009FD611 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC01F23CE0E9C009FD611 /* SceneDelegate.swift */; };
 		944AC02223CE0E9C009FD611 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC02123CE0E9C009FD611 /* ViewController.swift */; };
-		944AC02523CE0E9C009FD611 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944AC02323CE0E9C009FD611 /* Main.storyboard */; };
 		944AC02723CE0E9E009FD611 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 944AC02623CE0E9E009FD611 /* Assets.xcassets */; };
 		944AC02A23CE0E9E009FD611 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944AC02823CE0E9E009FD611 /* LaunchScreen.storyboard */; };
 		944AC03523CE0E9E009FD611 /* SimpleFlickrBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC03423CE0E9E009FD611 /* SimpleFlickrBrowserTests.swift */; };
@@ -29,9 +27,7 @@
 /* Begin PBXFileReference section */
 		944AC01A23CE0E9C009FD611 /* SimpleFlickrBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleFlickrBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		944AC01D23CE0E9C009FD611 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		944AC01F23CE0E9C009FD611 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		944AC02123CE0E9C009FD611 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		944AC02423CE0E9C009FD611 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		944AC02623CE0E9E009FD611 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		944AC02923CE0E9E009FD611 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		944AC02B23CE0E9E009FD611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,13 +75,9 @@
 		944AC01C23CE0E9C009FD611 /* SimpleFlickrBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				944AC04023CFA551009FD611 /* Resources */,
 				944AC01D23CE0E9C009FD611 /* AppDelegate.swift */,
-				944AC01F23CE0E9C009FD611 /* SceneDelegate.swift */,
 				944AC02123CE0E9C009FD611 /* ViewController.swift */,
-				944AC02323CE0E9C009FD611 /* Main.storyboard */,
-				944AC02623CE0E9E009FD611 /* Assets.xcassets */,
-				944AC02823CE0E9E009FD611 /* LaunchScreen.storyboard */,
-				944AC02B23CE0E9E009FD611 /* Info.plist */,
 			);
 			path = SimpleFlickrBrowser;
 			sourceTree = "<group>";
@@ -97,6 +89,16 @@
 				944AC03623CE0E9E009FD611 /* Info.plist */,
 			);
 			path = SimpleFlickrBrowserTests;
+			sourceTree = "<group>";
+		};
+		944AC04023CFA551009FD611 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				944AC02623CE0E9E009FD611 /* Assets.xcassets */,
+				944AC02823CE0E9E009FD611 /* LaunchScreen.storyboard */,
+				944AC02B23CE0E9E009FD611 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,7 +184,6 @@
 			files = (
 				944AC02A23CE0E9E009FD611 /* LaunchScreen.storyboard in Resources */,
 				944AC02723CE0E9E009FD611 /* Assets.xcassets in Resources */,
-				944AC02523CE0E9C009FD611 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +203,6 @@
 			files = (
 				944AC02223CE0E9C009FD611 /* ViewController.swift in Sources */,
 				944AC01E23CE0E9C009FD611 /* AppDelegate.swift in Sources */,
-				944AC02023CE0E9C009FD611 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,14 +225,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		944AC02323CE0E9C009FD611 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				944AC02423CE0E9C009FD611 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		944AC02823CE0E9E009FD611 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -364,7 +356,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9457UBK9S3;
-				INFOPLIST_FILE = SimpleFlickrBrowser/Info.plist;
+				INFOPLIST_FILE = SimpleFlickrBrowser/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -382,7 +374,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9457UBK9S3;
-				INFOPLIST_FILE = SimpleFlickrBrowser/Info.plist;
+				INFOPLIST_FILE = SimpleFlickrBrowser/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

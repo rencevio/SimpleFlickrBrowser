@@ -1,10 +1,7 @@
 //
-//  SimpleFlickrBrowserTests.swift
-//  SimpleFlickrBrowserTests
+// Created by Maxim Berezhnoy on 14/01/2020.
 //
-//  Created by maxim on 14/01/2020.
-//  Copyright © 2020 rencevio. All rights reserved.
-//
+// Copyright (c) 2020 rencevio. All rights reserved.
 
 import XCTest
 @testable import SimpleFlickrBrowser
