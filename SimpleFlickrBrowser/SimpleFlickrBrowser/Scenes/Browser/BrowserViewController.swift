@@ -6,7 +6,7 @@
 import UIKit
 
 protocol BrowserDisplaying: class {
-    func display(photos: [Photo])
+    func display(photos: Photos.ViewModel)
 }
 
 private struct LayoutConstants {
@@ -66,7 +66,7 @@ final class BrowserViewController: UIViewController {
 
         setupCollectionView()
 
-        interactor.fetchPhotos()
+        interactor.fetch(photos: Photos.Request())
     }
 
     private func setupCollectionView() {
@@ -86,8 +86,8 @@ final class BrowserViewController: UIViewController {
 
 // MARK: - BrowserDisplaying
 extension BrowserViewController: BrowserDisplaying {
-    func display(photos: [Photo]) {
-        dataSource.set(photos: photos)
+    func display(photos: Photos.ViewModel) {
+        dataSource.set(photos: photos.photos)
         collectionView.reloadData()
     }
 }

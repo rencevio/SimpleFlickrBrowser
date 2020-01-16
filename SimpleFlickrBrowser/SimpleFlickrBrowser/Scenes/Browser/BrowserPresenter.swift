@@ -4,13 +4,13 @@
 // Copyright (c) 2020 rencevio. All rights reserved.
 
 protocol BrowserPresenting: class {
-    func present(photos: [Photo])   
+    func present(photos: Photos.Response)
 }
 
 final class BrowserPresenter: BrowserPresenting {
     weak var view: BrowserDisplaying?
 
-    func present(photos: [Photo]) {
-        view?.display(photos: photos)
+    func present(photos: Photos.Response) {
+        view?.display(photos: Photos.ViewModel(photos: photos.photos))
     }
 }
