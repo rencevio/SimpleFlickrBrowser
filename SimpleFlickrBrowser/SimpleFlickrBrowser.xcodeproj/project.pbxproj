@@ -7,11 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62DE9072B9CEDE9C92CBF7AF /* BrowserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE98FFE252C3D837867816 /* BrowserPresenter.swift */; };
+		62DE9452E6FC1D01DD8976DA /* BrowserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9CC652A43A976EDE4FF6 /* BrowserFactory.swift */; };
+		62DE9927B234F05FAB311B8D /* RootDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE94A9AA78F83D54078368 /* RootDependencies.swift */; };
+		62DE9B36C2A72575C7802A24 /* BrowserInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9E2159757D6020248C32 /* BrowserInteractor.swift */; };
+		62DE9B6C8EDB44A25EEE77A0 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE900EADCC52560B246392 /* BrowserViewController.swift */; };
+		62DE9C8EC1EBD9B055EF5388 /* BrowserViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9817F61216E36044EA42 /* BrowserViewDataSource.swift */; };
+		62DE9E63C0B530594A5B150B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9C8D791DA5418ED32FCF /* Style.swift */; };
+		62DE9F2E46CDDC60B4A5DEAE /* BrowserModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9E652D625ECC302D66F9 /* BrowserModels.swift */; };
 		944AC01E23CE0E9C009FD611 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC01D23CE0E9C009FD611 /* AppDelegate.swift */; };
-		944AC02223CE0E9C009FD611 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC02123CE0E9C009FD611 /* ViewController.swift */; };
 		944AC02723CE0E9E009FD611 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 944AC02623CE0E9E009FD611 /* Assets.xcassets */; };
 		944AC02A23CE0E9E009FD611 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944AC02823CE0E9E009FD611 /* LaunchScreen.storyboard */; };
 		944AC03523CE0E9E009FD611 /* SimpleFlickrBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC03423CE0E9E009FD611 /* SimpleFlickrBrowserTests.swift */; };
+		944AC04423CFA5CC009FD611 /* FlickrApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AC04323CFA5CC009FD611 /* FlickrApiKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,15 +33,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		62DE900EADCC52560B246392 /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		62DE94A9AA78F83D54078368 /* RootDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootDependencies.swift; sourceTree = "<group>"; };
+		62DE9817F61216E36044EA42 /* BrowserViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewDataSource.swift; sourceTree = "<group>"; };
+		62DE98FFE252C3D837867816 /* BrowserPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserPresenter.swift; sourceTree = "<group>"; };
+		62DE9C8D791DA5418ED32FCF /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		62DE9CC652A43A976EDE4FF6 /* BrowserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserFactory.swift; sourceTree = "<group>"; };
+		62DE9E2159757D6020248C32 /* BrowserInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserInteractor.swift; sourceTree = "<group>"; };
+		62DE9E652D625ECC302D66F9 /* BrowserModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserModels.swift; sourceTree = "<group>"; };
 		944AC01A23CE0E9C009FD611 /* SimpleFlickrBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleFlickrBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		944AC01D23CE0E9C009FD611 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		944AC02123CE0E9C009FD611 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		944AC02623CE0E9E009FD611 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		944AC02923CE0E9E009FD611 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		944AC02B23CE0E9E009FD611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		944AC03023CE0E9E009FD611 /* SimpleFlickrBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleFlickrBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		944AC03423CE0E9E009FD611 /* SimpleFlickrBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFlickrBrowserTests.swift; sourceTree = "<group>"; };
 		944AC03623CE0E9E009FD611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		944AC04323CFA5CC009FD611 /* FlickrApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrApiKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +91,10 @@
 		944AC01C23CE0E9C009FD611 /* SimpleFlickrBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				944AC04123CFA5A1009FD611 /* Scenes */,
 				944AC04023CFA551009FD611 /* Resources */,
 				944AC01D23CE0E9C009FD611 /* AppDelegate.swift */,
-				944AC02123CE0E9C009FD611 /* ViewController.swift */,
+				62DE94A9AA78F83D54078368 /* RootDependencies.swift */,
 			);
 			path = SimpleFlickrBrowser;
 			sourceTree = "<group>";
@@ -97,8 +114,31 @@
 				944AC02623CE0E9E009FD611 /* Assets.xcassets */,
 				944AC02823CE0E9E009FD611 /* LaunchScreen.storyboard */,
 				944AC02B23CE0E9E009FD611 /* Info.plist */,
+				944AC04323CFA5CC009FD611 /* FlickrApiKey.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		944AC04123CFA5A1009FD611 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				944AC04523CFA643009FD611 /* Browser */,
+				62DE9C8D791DA5418ED32FCF /* Style.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		944AC04523CFA643009FD611 /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				62DE900EADCC52560B246392 /* BrowserViewController.swift */,
+				62DE9E2159757D6020248C32 /* BrowserInteractor.swift */,
+				62DE98FFE252C3D837867816 /* BrowserPresenter.swift */,
+				62DE9E652D625ECC302D66F9 /* BrowserModels.swift */,
+				62DE9817F61216E36044EA42 /* BrowserViewDataSource.swift */,
+				62DE9CC652A43A976EDE4FF6 /* BrowserFactory.swift */,
+			);
+			path = Browser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,8 +241,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				944AC02223CE0E9C009FD611 /* ViewController.swift in Sources */,
+				944AC04423CFA5CC009FD611 /* FlickrApiKey.swift in Sources */,
 				944AC01E23CE0E9C009FD611 /* AppDelegate.swift in Sources */,
+				62DE9B6C8EDB44A25EEE77A0 /* BrowserViewController.swift in Sources */,
+				62DE9B36C2A72575C7802A24 /* BrowserInteractor.swift in Sources */,
+				62DE9072B9CEDE9C92CBF7AF /* BrowserPresenter.swift in Sources */,
+				62DE9F2E46CDDC60B4A5DEAE /* BrowserModels.swift in Sources */,
+				62DE9C8EC1EBD9B055EF5388 /* BrowserViewDataSource.swift in Sources */,
+				62DE9927B234F05FAB311B8D /* RootDependencies.swift in Sources */,
+				62DE9452E6FC1D01DD8976DA /* BrowserFactory.swift in Sources */,
+				62DE9E63C0B530594A5B150B /* Style.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
