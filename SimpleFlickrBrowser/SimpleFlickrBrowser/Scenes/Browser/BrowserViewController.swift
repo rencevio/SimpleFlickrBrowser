@@ -9,12 +9,32 @@ protocol BrowserDisplaying: class {
     func display(photos: [Photo])
 }
 
+private struct LayoutConstants {
+    static let itemsPerRow = 3
+
+    static let padding: CGFloat = 10.0
+    static let interitemSpacing: CGFloat = 10
+    static let lineSpacing: CGFloat = 10
+
+    static let heightRatio: CGFloat = 1.0
+}
+
 final class BrowserViewController: UIViewController {
     private let interactor: BrowserInteracting
     private let dataSource: BrowserDataSourcing
 
     private lazy var collectionFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
+
+        layout.sectionInset = UIEdgeInsets(
+                top: LayoutConstants.padding,
+                left: LayoutConstants.padding,
+                bottom: LayoutConstants.padding,
+                right: LayoutConstants.padding
+        )
+
+        layout.minimumInteritemSpacing = LayoutConstants.interitemSpacing
+        layout.minimumLineSpacing = LayoutConstants.lineSpacing
 
         return layout
     }()
@@ -41,6 +61,8 @@ final class BrowserViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.isHidden = true
 
         setupCollectionView()
 
@@ -56,6 +78,8 @@ final class BrowserViewController: UIViewController {
         collectionView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
 
+        collectionView.delegate = self
+
         dataSource.register(for: collectionView)
     }
 }
@@ -65,5 +89,20 @@ extension BrowserViewController: BrowserDisplaying {
     func display(photos: [Photo]) {
         dataSource.set(photos: photos)
         collectionView.reloadData()
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension BrowserViewController: UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView,
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let viewWidth = self.collectionView.bounds.width - LayoutConstants.padding * 2
+
+        let totalInteritemSpacing = CGFloat(LayoutConstants.itemsPerRow - 1) * LayoutConstants.interitemSpacing
+
+        let itemWidth = ((viewWidth - totalInteritemSpacing) / CGFloat(LayoutConstants.itemsPerRow)).rounded(.down)
+
+        return CGSize(width: itemWidth, height: itemWidth * LayoutConstants.heightRatio)
     }
 }

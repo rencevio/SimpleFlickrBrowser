@@ -23,6 +23,9 @@ extension BrowserViewDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TBI", for: indexPath)
         
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1.0
+        
         let label = UILabel()
         label.text = photos[indexPath.item].id
         
@@ -33,6 +36,8 @@ extension BrowserViewDataSource: UICollectionViewDataSource {
         label.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
         label.widthAnchor.constraint(equalTo: cell.widthAnchor).isActive = true
         label.heightAnchor.constraint(equalTo: cell.heightAnchor).isActive = true
+        
+        label.textAlignment = .center
         
         return cell
     }
