@@ -10,7 +10,9 @@ protocol PhotoDataProviderCreating {
 final class PhotoDataProviderFactory: PhotoDataProviderCreating {
     func createPhotoProvider() -> PhotoDataProviding {
         let cache = PhotoDataNSCache()
-        let retriever = NetworkPhotoDataRetriever()
+
+        let httpClient = Http.Client()
+        let retriever = NetworkPhotoDataRetriever(httpClient: httpClient)
 
         return PhotoDataProvider(cache: cache, retriever: retriever)
     }

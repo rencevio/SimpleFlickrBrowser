@@ -31,6 +31,7 @@
 		62DE9C8EC1EBD9B055EF5388 /* BrowserViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9817F61216E36044EA42 /* BrowserViewDataSource.swift */; };
 		62DE9CBE1FB6013A700EB635 /* BrowserCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9591CAA01E3F3C91A977 /* BrowserCellPresenter.swift */; };
 		62DE9E63C0B530594A5B150B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9C8D791DA5418ED32FCF /* Style.swift */; };
+		62DE9EC2FE48A5A204531EEA /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE93C78893DAA0E46DBD6A /* HttpClient.swift */; };
 		62DE9F2E46CDDC60B4A5DEAE /* BrowserModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9E652D625ECC302D66F9 /* BrowserModels.swift */; };
 		62DE9F5B37C5FE4BED753FB2 /* PhotoDataNSCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9805D6D4DBDDBAD078E2 /* PhotoDataNSCache.swift */; };
 		62DE9F69E85302202E6884B3 /* PhotoDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9FF6B55060E5204AC907 /* PhotoDataProvider.swift */; };
@@ -59,6 +60,7 @@
 		62DE92C6C8EA6BC8A24E8EBC /* BrowserCellFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellFactory.swift; sourceTree = "<group>"; };
 		62DE92EE74C81312D3DB90B0 /* MockPhotoDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPhotoDataProvider.swift; sourceTree = "<group>"; };
 		62DE93A95BC1DB3D74EC66D8 /* BrowserCellInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellInteractorTests.swift; sourceTree = "<group>"; };
+		62DE93C78893DAA0E46DBD6A /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		62DE94A9AA78F83D54078368 /* RootDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootDependencies.swift; sourceTree = "<group>"; };
 		62DE9591CAA01E3F3C91A977 /* BrowserCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellPresenter.swift; sourceTree = "<group>"; };
 		62DE9648DCA09C364860E8BB /* BrowserViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewCell.swift; sourceTree = "<group>"; };
@@ -177,6 +179,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		62DE9C11F52BBF38DEB44438 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				62DE93C78893DAA0E46DBD6A /* HttpClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		62DE9CFCEE30E01697165808 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +272,7 @@
 				944AC01D23CE0E9C009FD611 /* AppDelegate.swift */,
 				62DE94A9AA78F83D54078368 /* RootDependencies.swift */,
 				62DE9E4975BBE450619E428D /* Services */,
+				62DE9C11F52BBF38DEB44438 /* Network */,
 			);
 			path = SimpleFlickrBrowser;
 			sourceTree = "<group>";
@@ -433,6 +444,7 @@
 				62DE91E5B84C14466618EAC1 /* ConfigurableBrowserCell.swift in Sources */,
 				62DE90B3B714B21C13925831 /* BrowserCellConfigurator.swift in Sources */,
 				62DE90A60057F36A04993DE3 /* BrowserCellFactory.swift in Sources */,
+				62DE9EC2FE48A5A204531EEA /* HttpClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

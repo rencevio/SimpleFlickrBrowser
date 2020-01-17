@@ -48,7 +48,7 @@ final class BrowserViewCell: UICollectionViewCell {
 // MARK: - BrowserCellDisplaying
 extension BrowserViewCell: BrowserCellDisplaying {
     func display(image: PhotoImage.ViewModel) {
-
+        
     }
 }
 
