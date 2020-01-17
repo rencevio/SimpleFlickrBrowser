@@ -11,7 +11,15 @@ protocol BrowserDataSourcing: UICollectionViewDataSource {
 }
 
 final class BrowserViewDataSource: NSObject {
+    private let cellConfigurator: BrowserCellConfiguring
+
     private var photos = [Photo]()
+
+    init(cellConfigurator: BrowserCellConfiguring) {
+        self.cellConfigurator = cellConfigurator
+
+        super.init()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -21,24 +29,11 @@ extension BrowserViewDataSource: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TBI", for: indexPath)
+        let cell = dequeueBrowserCell(from: collectionView, at: indexPath)
+        let photo = photos[indexPath.item]
         
-        cell.layer.borderColor = UIColor.black.cgColor
-        cell.layer.borderWidth = 1.0
-        
-        let label = UILabel()
-        label.text = photos[indexPath.item].id
-        
-        cell.addSubview(label)
+        cellConfigurator.configure(cell: cell, with: photo)
 
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        label.widthAnchor.constraint(equalTo: cell.widthAnchor).isActive = true
-        label.heightAnchor.constraint(equalTo: cell.heightAnchor).isActive = true
-        
-        label.textAlignment = .center
-        
         return cell
     }
 }
@@ -47,10 +42,23 @@ extension BrowserViewDataSource: UICollectionViewDataSource {
 extension BrowserViewDataSource: BrowserDataSourcing {
     func register(for collectionView: UICollectionView) {
         collectionView.dataSource = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "TBI")
+        collectionView.register(BrowserViewCell.self, forCellWithReuseIdentifier: BrowserViewCell.identifier)
     }
 
     func set(photos: [Photo]) {
         self.photos = photos
+    }
+}
+
+// MARK: - BrowserViewCell dequeuing
+extension BrowserViewDataSource {
+    func dequeueBrowserCell(from collectionView: UICollectionView, at indexPath: IndexPath) -> BrowserViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BrowserViewCell.identifier, for: indexPath)
+
+        guard let browserCell = cell as? BrowserViewCell else {
+            fatalError("Unexpected cell type while dequeuing in \(BrowserViewDataSource.self): got \(cell)")
+        }
+
+        return browserCell
     }
 }
