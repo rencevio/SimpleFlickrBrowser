@@ -25,8 +25,6 @@ final class BrowserViewController: UIViewController {
     private let interactor: BrowserInteracting
     private let dataSource: BrowserDataSourcing
 
-    private var currentSearchQuery = ""
-
     private lazy var searchController: UISearchController = {
         let controller = UISearchController()
 
@@ -107,8 +105,32 @@ final class BrowserViewController: UIViewController {
 // MARK: - BrowserDisplaying
 extension BrowserViewController: BrowserDisplaying {
     func display(photos: Photos.ViewModel) {
-        dataSource.set(photos: photos.photos)
-        collectionView.reloadData()
+        let currentPhotoCount = dataSource.photoCount
+
+        dataSource.append(photos: photos.photos)
+
+        collectionView.insertItems(at: (currentPhotoCount..<currentPhotoCount + photos.photos.count).map { IndexPath(item: $0, section: 0) })
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension BrowserViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        let itemToDisplay = indexPath.item
+
+        let loadedPhotosCount = dataSource.photoCount
+
+        if itemToDisplay == loadedPhotosCount - LayoutConstants.itemsPerRow * 4 {
+            interactor.fetch(
+                    photos: Photos.Request(
+                            startFromPosition: loadedPhotosCount,
+                            fetchAtMost: photosPerFetchRequest,
+                            searchCriteria: searchController.searchBar.text
+                    )
+            )
+        }
     }
 }
 
@@ -130,17 +152,22 @@ extension BrowserViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UISearchBarDelegate
 extension BrowserViewController: UISearchBarDelegate {
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let query = searchBar.text else { return }
+        interactor.fetch(
+                photos: Photos.Request(
+                        startFromPosition: 0,
+                        fetchAtMost: photosPerFetchRequest,
+                        searchCriteria: searchBar.text
+                )
+        )
+    }
 
-        if query != currentSearchQuery {
-            currentSearchQuery = query
-            interactor.fetch(
-                    photos: Photos.Request(
-                            startFromPosition: 0,
-                            fetchAtMost: photosPerFetchRequest,
-                            searchCriteria: query
-                    )
-            )
-        }
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        interactor.fetch(
+                photos: Photos.Request(
+                        startFromPosition: 0,
+                        fetchAtMost: photosPerFetchRequest,
+                        searchCriteria: nil
+                )
+        )
     }
 }

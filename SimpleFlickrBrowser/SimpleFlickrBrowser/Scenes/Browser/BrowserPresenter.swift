@@ -9,8 +9,10 @@ protocol BrowserPresenting: class {
 
 final class BrowserPresenter: BrowserPresenting {
     weak var view: BrowserDisplaying?
-
+    
     func present(photos: Photos.Response) {
-        view?.display(photos: Photos.ViewModel(photos: photos.photos))
+        let viewModel = Photos.ViewModel(photos: photos.photos)
+        
+        view?.display(photos: viewModel)
     }
 }

@@ -6,8 +6,10 @@
 import UIKit
 
 protocol BrowserDataSourcing: UICollectionViewDataSource {
+    var photoCount: Int { get }
+
     func register(for collectionView: UICollectionView)
-    func set(photos: [Photo])
+    func append(photos: [Photo])
 }
 
 final class BrowserViewDataSource: NSObject {
@@ -30,8 +32,9 @@ extension BrowserViewDataSource: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueBrowserCell(from: collectionView, at: indexPath)
+
         let photo = photos[indexPath.item]
-        
+
         cellConfigurator.configure(cell: cell, with: photo)
 
         return cell
@@ -40,13 +43,17 @@ extension BrowserViewDataSource: UICollectionViewDataSource {
 
 // MARK: - BrowserDataSourcing
 extension BrowserViewDataSource: BrowserDataSourcing {
+    var photoCount: Int {
+        photos.count
+    }
+
     func register(for collectionView: UICollectionView) {
         collectionView.dataSource = self
         collectionView.register(BrowserViewCell.self, forCellWithReuseIdentifier: BrowserViewCell.identifier)
     }
 
-    func set(photos: [Photo]) {
-        self.photos = photos
+    func append(photos: [Photo]) {
+        self.photos.append(contentsOf: photos)
     }
 }
 

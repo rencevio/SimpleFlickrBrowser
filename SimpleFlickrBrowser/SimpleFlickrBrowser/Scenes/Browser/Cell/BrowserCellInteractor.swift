@@ -22,7 +22,7 @@ final class BrowserCellInteractor: BrowserCellInteracting {
 
     func fetch(image: PhotoImage.Request) {
         presenter.presentLoading()
-        
+
         currentPhotoId = image.photoID
 
         photoDataProvider.getPhotoData(from: image.url) { [weak self] result in
