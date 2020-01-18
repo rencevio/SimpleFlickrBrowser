@@ -186,6 +186,7 @@ extension BrowserViewController: UISearchBarDelegate {
     }
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
         requestNewPhotos()
     }
 }
