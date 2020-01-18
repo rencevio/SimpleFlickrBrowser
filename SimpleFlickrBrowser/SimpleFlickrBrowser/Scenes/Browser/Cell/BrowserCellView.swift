@@ -33,18 +33,8 @@ final class BrowserViewCell: UICollectionViewCell {
 
     lazy var placeholderView: UIView = {
         let view = UIView()
-
-        let label = UILabel(frame: .zero)
-
-        label.text = "Placeholder"
-        label.textAlignment = .center
-        
-        view.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        label.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+    
+        view.backgroundColor = .white
 
         return view
     }()
