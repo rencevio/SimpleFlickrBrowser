@@ -21,9 +21,20 @@ private struct LayoutConstants {
 
 final class BrowserViewController: UIViewController {
     private let photosPerFetchRequest = LayoutConstants.itemsPerRow * 15
-    
+
     private let interactor: BrowserInteracting
     private let dataSource: BrowserDataSourcing
+
+    private var currentSearchQuery = ""
+
+    private lazy var searchController: UISearchController = {
+        let controller = UISearchController()
+
+        controller.obscuresBackgroundDuringPresentation = false
+        controller.definesPresentationContext = true
+
+        return controller
+    }()
 
     private lazy var collectionFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -63,12 +74,11 @@ final class BrowserViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.isHidden = true
 
         setupCollectionView()
+        setupSearchController()
 
-        interactor.fetch(photos: Photos.Request(startFromPosition: 0, fetchAtMost: photosPerFetchRequest))
+        interactor.fetch(photos: Photos.Request(startFromPosition: 0, fetchAtMost: photosPerFetchRequest, searchCriteria: nil))
     }
 
     private func setupCollectionView() {
@@ -84,6 +94,14 @@ final class BrowserViewController: UIViewController {
 
         dataSource.register(for: collectionView)
     }
+
+    private func setupSearchController() {
+        searchController.searchBar.delegate = self
+        searchController.searchBar.enablesReturnKeyAutomatically = false
+
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
 }
 
 // MARK: - BrowserDisplaying
@@ -96,9 +114,9 @@ extension BrowserViewController: BrowserDisplaying {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension BrowserViewController: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView,
-                               layout collectionViewLayout: UICollectionViewLayout,
-                               sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let viewWidth = self.collectionView.bounds.width - LayoutConstants.padding * 2
 
         let totalInteritemSpacing = CGFloat(LayoutConstants.itemsPerRow - 1) * LayoutConstants.interitemSpacing
@@ -106,5 +124,23 @@ extension BrowserViewController: UICollectionViewDelegateFlowLayout {
         let itemWidth = ((viewWidth - totalInteritemSpacing) / CGFloat(LayoutConstants.itemsPerRow)).rounded(.down)
 
         return CGSize(width: itemWidth, height: itemWidth * LayoutConstants.heightRatio)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension BrowserViewController: UISearchBarDelegate {
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text else { return }
+
+        if query != currentSearchQuery {
+            currentSearchQuery = query
+            interactor.fetch(
+                    photos: Photos.Request(
+                            startFromPosition: 0,
+                            fetchAtMost: photosPerFetchRequest,
+                            searchCriteria: query
+                    )
+            )
+        }
     }
 }

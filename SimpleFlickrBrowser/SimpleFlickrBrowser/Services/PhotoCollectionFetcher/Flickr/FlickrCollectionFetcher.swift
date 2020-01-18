@@ -22,7 +22,7 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
                      completion: @escaping Completion) {
         let page = position / maxFetchCount
 
-        if let searchCriteria = searchCriteria {
+        if let searchCriteria = searchCriteria, !searchCriteria.isEmpty {
             flickrPhotosService.search(
                     matching: searchCriteria,
                     page: page,

@@ -36,7 +36,7 @@ final class FlickrPhotosService: FlickrPhotosFetching {
 
     func search(matching text: String, page: Int, photosPerPage: Int, completion: @escaping Completion) {
         let url = FlickrApiURLResolver.build(
-                method: .photosGetRecent,
+                method: .photosSearch,
                 apiKey: apiKey,
                 queryParameters: [
                     .text: text,
