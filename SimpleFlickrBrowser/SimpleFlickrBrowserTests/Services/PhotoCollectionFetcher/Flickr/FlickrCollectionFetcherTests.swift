@@ -49,7 +49,7 @@ class FlickrCollectionFetcherTests: XCTestCase {
         XCTAssertEqual(serviceFetchResult.map { $0.id }, fetchResult.map { $0.id })
 
         XCTAssertEqual(photosServiceMock.getRecentCalls.count, 1)
-        XCTAssertTrue(photosServiceMock.getRecentCalls[0] == (startingPosition, maxFetchCount))
+        XCTAssertTrue(photosServiceMock.getRecentCalls[0] == (startingPosition + 1, maxFetchCount))
 
         XCTAssertEqual(photosServiceMock.searchCalls.count, 0)
     }
@@ -87,7 +87,7 @@ class FlickrCollectionFetcherTests: XCTestCase {
         XCTAssertEqual(serviceFetchResult.map { $0.id }, fetchResult.map { $0.id })
 
         XCTAssertEqual(photosServiceMock.searchCalls.count, 1)
-        XCTAssertTrue(photosServiceMock.searchCalls[0] == (searchCriteria, startingPosition, maxFetchCount))
+        XCTAssertTrue(photosServiceMock.searchCalls[0] == (searchCriteria, startingPosition + 1, maxFetchCount))
 
         XCTAssertEqual(photosServiceMock.getRecentCalls.count, 0)
     }

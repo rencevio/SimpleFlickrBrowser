@@ -14,7 +14,7 @@ final class FlickrApiURLResolver {
             .method: method.rawValue,
             .apiKey: apiKey,
             .format: format,
-            .noJsonCallback: "1"
+            .noJsonCallback: "1",
         ]
 
         let resolvedQueryParameters = defaultQueryParameters.merging(queryParameters) { $1 }

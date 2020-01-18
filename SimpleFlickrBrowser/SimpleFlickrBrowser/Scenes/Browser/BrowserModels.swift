@@ -4,7 +4,7 @@
 // Copyright (c) 2020 rencevio. All rights reserved.
 
 struct Photos {
-    struct Request {
+    struct Request: Equatable {
         let startFromPosition: Int
         let fetchAtMost: Int
         let searchCriteria: String

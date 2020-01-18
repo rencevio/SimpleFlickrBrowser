@@ -12,6 +12,8 @@ protocol BrowserInteracting {
 final class BrowserInteractor: BrowserInteracting {
     private let presenter: BrowserPresenting
     private let photoCollectionFetcher: PhotoCollectionFetching
+    
+    private var currentRequest: Photos.Request?
 
     init(presenter: BrowserPresenting, photoCollectionFetcher: PhotoCollectionFetching) {
         self.presenter = presenter
@@ -19,6 +21,12 @@ final class BrowserInteractor: BrowserInteracting {
     }
 
     func fetch(photos request: Photos.Request) {
+        if currentRequest == request {
+            return
+        }
+        
+        currentRequest = request
+        
         photoCollectionFetcher.fetchPhotos(
                 startingFrom: request.startFromPosition,
                 fetchAtMost: request.fetchAtMost,
