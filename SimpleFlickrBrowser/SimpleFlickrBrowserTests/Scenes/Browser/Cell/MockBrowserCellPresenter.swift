@@ -8,11 +8,16 @@
 import Foundation
 
 final class MockBrowserCellPresenter: BrowserCellPresenting {
-    var presentCalls = [PhotoImage.Response]()
+    var presentImageCalls = [PhotoImage.Response]()
     var presentErrorCalls = 0
+    var presentLoadingCalls = 0
 
     func present(image: PhotoImage.Response) {
-        presentCalls.append(image)
+        presentImageCalls.append(image)
+    }
+
+    func presentLoading() {
+        presentLoadingCalls += 1
     }
 
     func presentError() {

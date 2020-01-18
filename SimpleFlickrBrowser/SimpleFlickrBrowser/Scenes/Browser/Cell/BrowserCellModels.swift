@@ -7,6 +7,7 @@ import UIKit
 
 struct PhotoImage {
     struct Request {
+        let photoID: Photo.ID
         let url: URL
     }
     

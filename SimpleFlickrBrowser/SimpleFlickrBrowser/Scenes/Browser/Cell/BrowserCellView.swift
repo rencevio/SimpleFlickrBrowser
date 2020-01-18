@@ -7,6 +7,7 @@ import UIKit
 
 protocol BrowserCellDisplaying: class {
     func display(image: PhotoImage.ViewModel)
+    func displayLoading()
 }
 
 final class BrowserViewCell: UICollectionViewCell {
@@ -18,7 +19,6 @@ final class BrowserViewCell: UICollectionViewCell {
     static let identifier = "\(BrowserViewCell.self)"
 
     private var interactor: BrowserCellInteracting?
-    private var photo: Photo?
 
     lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -33,12 +33,11 @@ final class BrowserViewCell: UICollectionViewCell {
 
     lazy var placeholderView: UIView = {
         let view = UIView()
-        
+
         let label = UILabel(frame: .zero)
-        
+
         label.text = "Placeholder"
         label.textAlignment = .center
-        
         
         view.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +45,7 @@ final class BrowserViewCell: UICollectionViewCell {
         label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         label.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        
+
         return view
     }()
 
@@ -103,14 +102,17 @@ extension BrowserViewCell: BrowserCellDisplaying {
     func display(image: PhotoImage.ViewModel) {
         set(state: .image(image.image))
     }
+
+    func displayLoading() {
+        set(state: .loading)
+    }
 }
 
 // MARK: - ConfigurableBrowserCell
 extension BrowserViewCell: ConfigurableBrowserCell {
     func configure(interactor: BrowserCellInteracting, photo: Photo) {
         self.interactor = interactor
-        self.photo = photo
 
-        interactor.fetch(image: PhotoImage.Request(url: photo.image))
+        interactor.fetch(image: PhotoImage.Request(photoID: photo.id, url: photo.image))
     }
 }

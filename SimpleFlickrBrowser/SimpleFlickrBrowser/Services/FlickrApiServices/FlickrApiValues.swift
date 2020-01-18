@@ -4,6 +4,9 @@
 // Copyright (c) 2020 rencevio. All rights reserved.
 
 enum FlickrApiValues {
+    static let host = "www.flickr.com"
+    static let path = "/services/rest"
+    
     enum Method: String {
         case photosGetRecent = "flickr.photos.getRecent"
         case photosSearch = "flickr.photos.search"
@@ -11,7 +14,7 @@ enum FlickrApiValues {
 
     enum QueryParameter: String {
         case page = "page"
-        case perPage = "perpage"
+        case perPage = "per_page"
         case method = "method"
         case apiKey = "api_key"
         case format = "format"

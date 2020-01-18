@@ -7,6 +7,7 @@ import UIKit
 
 protocol BrowserCellPresenting: class {
     func present(image: PhotoImage.Response)
+    func presentLoading()
     func presentError()
 }
 
@@ -20,8 +21,12 @@ final class BrowserCellPresenter: BrowserCellPresenting {
 
         view.display(image: PhotoImage.ViewModel(image: image))
     }
+    
+    func presentLoading() {
+        view?.displayLoading()
+    }
 
     func presentError() {
-        
+        view?.displayLoading()
     }
 }

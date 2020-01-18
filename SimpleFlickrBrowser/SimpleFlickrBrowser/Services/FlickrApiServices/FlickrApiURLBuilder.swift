@@ -6,9 +6,6 @@
 import Foundation
 
 final class FlickrApiURLResolver {
-    static let host = "www.flickr.com"
-    static let apiPath = "/services/rest"
-
     static func build(method: FlickrApiValues.Method,
                       apiKey: String,
                       queryParameters: [FlickrApiValues.QueryParameter: String],
@@ -25,8 +22,8 @@ final class FlickrApiURLResolver {
         var urlComponents = URLComponents()
 
         urlComponents.scheme = "https"
-        urlComponents.host = host
-        urlComponents.path = apiPath
+        urlComponents.host = FlickrApiValues.host
+        urlComponents.path = FlickrApiValues.path
         urlComponents.queryItems = resolvedQueryParameters.map { URLQueryItem(name: $0.key.rawValue, value: $0.value) }
 
         guard let builtUrl = urlComponents.url else {
