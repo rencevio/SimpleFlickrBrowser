@@ -3,19 +3,11 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
-import struct Foundation.URL
-
-// TODO: move somewhere else (root Models directory?)
-struct Photo {
-    typealias ID = String
-    
-    let id: ID
-    let image: URL
-}
-
 struct Photos {
     struct Request {
-        
+        let startFromPosition: Int
+        let fetchAtMost: Int
+        let searchCriteria: String? = nil
     }
     
     struct Response {

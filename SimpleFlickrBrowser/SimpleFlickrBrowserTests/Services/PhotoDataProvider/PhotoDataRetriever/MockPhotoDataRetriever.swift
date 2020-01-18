@@ -12,10 +12,12 @@ class MockDataPhotoRetriever: PhotoDataRetrieving {
     var retrieveResult: Result<Data, Error>?
 
     func retrieve(from url: URL, completion: @escaping Completion) {
-        guard let result = retrieveResult else { fatalError("\(#function) expectation was not set") }
-        
+        guard let result = retrieveResult else {
+            fatalError("\(#function) expectation was not set")
+        }
+
         retrieveCalls.append(url)
-        
+
         completion(result)
     }
 }

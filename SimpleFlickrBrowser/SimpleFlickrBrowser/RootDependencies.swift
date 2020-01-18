@@ -5,15 +5,22 @@
 
 final class RootDependencies {
     let photoDataProvider: PhotoDataProviding
+    let photoCollectionFetcher: PhotoCollectionFetching
 
     init() {
         let photoDataProviderFactory = PhotoDataProviderFactory()
         self.photoDataProvider = photoDataProviderFactory.createPhotoProvider()
+
+        let photoCollectionFetcherFactory = FlickrCollectionFetcherFactory()
+        self.photoCollectionFetcher = photoCollectionFetcherFactory.createCollectionFetcher()
     }
 
     func createBrowserViewController() -> BrowserViewController {
-        let browserFactory = BrowserFactory(photoDataProvider: photoDataProvider)
+        let browserFactory = BrowserFactory()
 
-        return browserFactory.createViewController(photoDataProvider: photoDataProvider)
+        return browserFactory.createViewController(
+                photoDataProvider: photoDataProvider,
+                photoCollectionFetcher: photoCollectionFetcher
+        )
     }
 }

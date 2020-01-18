@@ -9,7 +9,7 @@ import Foundation
 
 class MockPhotoDataCache: PhotoDataCaching {
     var storeCalls = [(URL, Data)]()
-    
+
     var retrieveCalls = [URL]()
     var retrieveResult: Result<Data, CacheError>?
 
@@ -18,10 +18,12 @@ class MockPhotoDataCache: PhotoDataCaching {
     }
 
     func retrieve(from url: URL) -> Result<Data, CacheError> {
-        guard let result = retrieveResult else { fatalError("\(#function) expectation was not set") }
-        
+        guard let result = retrieveResult else {
+            fatalError("\(#function) expectation was not set")
+        }
+
         retrieveCalls.append(url)
-        
+
         return result
     }
 }

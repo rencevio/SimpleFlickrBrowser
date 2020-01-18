@@ -4,17 +4,12 @@
 // Copyright (c) 2020 rencevio. All rights reserved.
 
 final class BrowserFactory {
-    private let photoDataProvider: PhotoDataProviding
-
-    init(photoDataProvider: PhotoDataProviding) {
-        self.photoDataProvider = photoDataProvider
-    }
-
-    func createViewController(photoDataProvider: PhotoDataProviding) -> BrowserViewController {
+    func createViewController(photoDataProvider: PhotoDataProviding,
+                              photoCollectionFetcher: PhotoCollectionFetching) -> BrowserViewController {
         let presenter = BrowserPresenter()
-        let interactor = BrowserInteractor(presenter: presenter)
+        let interactor = BrowserInteractor(presenter: presenter, photoCollectionFetcher: photoCollectionFetcher)
 
-        let dataSource = createDataSource()
+        let dataSource = createDataSource(photoDataProvider: photoDataProvider)
 
         let viewController = BrowserViewController(interactor: interactor, dataSource: dataSource)
 
@@ -23,7 +18,7 @@ final class BrowserFactory {
         return viewController
     }
 
-    private func createDataSource() -> BrowserDataSourcing {
+    private func createDataSource(photoDataProvider: PhotoDataProviding) -> BrowserDataSourcing {
         let cellFactory = BrowserCellFactory(photoDataProvider: photoDataProvider)
         let cellConfigurator = cellFactory.createConfigurator()
 

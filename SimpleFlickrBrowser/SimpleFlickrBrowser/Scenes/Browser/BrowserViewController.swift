@@ -20,6 +20,8 @@ private struct LayoutConstants {
 }
 
 final class BrowserViewController: UIViewController {
+    private let photosPerFetchRequest = LayoutConstants.itemsPerRow * 15
+    
     private let interactor: BrowserInteracting
     private let dataSource: BrowserDataSourcing
 
@@ -66,7 +68,7 @@ final class BrowserViewController: UIViewController {
 
         setupCollectionView()
 
-        interactor.fetch(photos: Photos.Request())
+        interactor.fetch(photos: Photos.Request(startFromPosition: 0, fetchAtMost: photosPerFetchRequest))
     }
 
     private func setupCollectionView() {
