@@ -22,8 +22,8 @@ class FlickrCollectionFetcherTests: XCTestCase {
 
     func test_fetchPhotos_withoutSearchCriteria_fetchesRecentPhotos() {
         let serviceFetchResult = [
-            FlickrPhoto(id: "1", secret: "1", server: "1", farm: "1"),
-            FlickrPhoto(id: "2", secret: "2", server: "2", farm: "2"),
+            FlickrPhoto(id: "1", secret: "1", server: "1", farm: 1),
+            FlickrPhoto(id: "2", secret: "2", server: "2", farm: 2),
         ]
 
         let startingPosition = 0
@@ -56,8 +56,8 @@ class FlickrCollectionFetcherTests: XCTestCase {
 
     func test_fetchPhotos_withSearchCriteria_searchesForPhotos() {
         let serviceFetchResult = [
-            FlickrPhoto(id: "1", secret: "1", server: "1", farm: "1"),
-            FlickrPhoto(id: "2", secret: "2", server: "2", farm: "2"),
+            FlickrPhoto(id: "1", secret: "1", server: "1", farm: 1),
+            FlickrPhoto(id: "2", secret: "2", server: "2", farm: 2),
         ]
 
         let searchCriteria = "cars"

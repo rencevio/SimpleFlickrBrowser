@@ -6,30 +6,32 @@
 import Foundation
 
 protocol BrowserInteracting {
-    func fetch(photos: Photos.Request)
+    func fetch(photos request: Photos.Request)
 }
 
 final class BrowserInteractor: BrowserInteracting {
     private let presenter: BrowserPresenting
+    private let photoCollectionFetcher: PhotoCollectionFetching
 
-    init(presenter: BrowserPresenting) {
+    init(presenter: BrowserPresenting, photoCollectionFetcher: PhotoCollectionFetching) {
         self.presenter = presenter
+        self.photoCollectionFetcher = photoCollectionFetcher
     }
 
-    func fetch(photos: Photos.Request) {
-        DispatchQueue.main.async { [weak presenter] in
-            let placeholderUrl = URL(string: "https://i.pinimg.com/236x/16/9f/72/169f72e28f26290e54a1f831b6c4714e.jpg")!
-            presenter?.present(
-                    photos: Photos.Response(
-                            photos: [
-                                Photo(id: "1", image: placeholderUrl),
-                                Photo(id: "2", image: placeholderUrl),
-                                Photo(id: "3", image: placeholderUrl),
-                                Photo(id: "4", image: placeholderUrl),
-                                Photo(id: "5", image: placeholderUrl)
-                            ]
-                    )
-            )
+    func fetch(photos request: Photos.Request) {
+        photoCollectionFetcher.fetchPhotos(
+                startingFrom: request.startFromPosition,
+                fetchAtMost: request.fetchAtMost,
+                matching: request.searchCriteria) { [weak presenter] result in
+            switch result {
+            case .success(let photos):
+                DispatchQueue.main.async { [weak presenter] in
+                    presenter?.present(photos: Photos.Response(photos: photos))
+                }
+            case .failure(let error):
+                print("Error while retrieving photos (request: \(request)): \(error)")
+                break
+            }
         }
     }
 }

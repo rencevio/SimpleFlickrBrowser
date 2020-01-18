@@ -7,7 +7,7 @@
 final class FlickrCollectionFetcherFactory: PhotoCollectionFetcherCreating {
     func createCollectionFetcher() -> PhotoCollectionFetching {
         let httpClient = Http.Client()
-        let flickrPhotosService = FlickrPhotosService(httpClient: httpClient)
+        let flickrPhotosService = FlickrPhotosService(apiKey: flickrApiKey, httpClient: httpClient)
 
         let fetcher = FlickrCollectionFetcher(flickrPhotosService: flickrPhotosService)
 
