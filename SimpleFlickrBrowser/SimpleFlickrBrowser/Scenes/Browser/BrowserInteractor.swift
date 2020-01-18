@@ -22,11 +22,11 @@ final class BrowserInteractor: BrowserInteracting {
         photoCollectionFetcher.fetchPhotos(
                 startingFrom: request.startFromPosition,
                 fetchAtMost: request.fetchAtMost,
-                matching: request.searchCriteria) { [weak presenter] result in
+                matching: request.searchCriteria) { [weak presenter, request] result in
             switch result {
             case .success(let photos):
-                DispatchQueue.main.async { [weak presenter] in
-                    presenter?.present(photos: Photos.Response(photos: photos))
+                DispatchQueue.main.async { [weak presenter, request] in
+                    presenter?.present(photos: Photos.Response(searchCriteria: request.searchCriteria, photos: photos))
                 }
             case .failure(let error):
                 print("Error while retrieving photos (request: \(request)): \(error)")

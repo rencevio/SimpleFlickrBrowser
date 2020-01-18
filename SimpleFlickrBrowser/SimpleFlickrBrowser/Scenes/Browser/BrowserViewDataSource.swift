@@ -9,7 +9,8 @@ protocol BrowserDataSourcing: UICollectionViewDataSource {
     var photoCount: Int { get }
 
     func register(for collectionView: UICollectionView)
-    func append(photos: [Photo])
+    func add(photos: [Photo])
+    func set(photos: [Photo])
 }
 
 final class BrowserViewDataSource: NSObject {
@@ -52,8 +53,12 @@ extension BrowserViewDataSource: BrowserDataSourcing {
         collectionView.register(BrowserViewCell.self, forCellWithReuseIdentifier: BrowserViewCell.identifier)
     }
 
-    func append(photos: [Photo]) {
+    func add(photos: [Photo]) {
         self.photos.append(contentsOf: photos)
+    }
+    
+    func set(photos: [Photo]) {
+        self.photos = photos
     }
 }
 

@@ -6,7 +6,8 @@
 import UIKit
 
 protocol BrowserDisplaying: class {
-    func display(photos: Photos.ViewModel)
+    func displayNew(photos: Photos.ViewModel)
+    func displayMore(photos: Photos.ViewModel)
 }
 
 private struct LayoutConstants {
@@ -76,9 +77,10 @@ final class BrowserViewController: UIViewController {
         setupCollectionView()
         setupSearchController()
 
-        interactor.fetch(photos: Photos.Request(startFromPosition: 0, fetchAtMost: photosPerFetchRequest, searchCriteria: nil))
+        requestNewPhotos()
     }
 
+    // MARK: - View Setup
     private func setupCollectionView() {
         view.addSubview(collectionView)
 
@@ -100,14 +102,42 @@ final class BrowserViewController: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
+
+    // MARK: - Data requesting
+    func requestMorePhotos() {
+        interactor.fetch(
+                photos: Photos.Request(
+                        startFromPosition: dataSource.photoCount,
+                        fetchAtMost: photosPerFetchRequest,
+                        searchCriteria: searchController.searchBar.text ?? ""
+                )
+        )
+    }
+
+    func requestNewPhotos() {
+        interactor.fetch(
+                photos: Photos.Request(
+                        startFromPosition: 0,
+                        fetchAtMost: photosPerFetchRequest,
+                        searchCriteria: searchController.searchBar.text ?? ""
+                )
+        )
+    }
 }
 
 // MARK: - BrowserDisplaying
 extension BrowserViewController: BrowserDisplaying {
-    func display(photos: Photos.ViewModel) {
+    func displayNew(photos: Photos.ViewModel) {
+        dataSource.set(photos: photos.photos)
+
+        collectionView.reloadData()
+        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+    }
+
+    func displayMore(photos: Photos.ViewModel) {
         let currentPhotoCount = dataSource.photoCount
 
-        dataSource.append(photos: photos.photos)
+        dataSource.add(photos: photos.photos)
 
         collectionView.insertItems(at: (currentPhotoCount..<currentPhotoCount + photos.photos.count).map { IndexPath(item: $0, section: 0) })
     }
@@ -123,13 +153,7 @@ extension BrowserViewController: UICollectionViewDelegate {
         let loadedPhotosCount = dataSource.photoCount
 
         if itemToDisplay == loadedPhotosCount - LayoutConstants.itemsPerRow * 4 {
-            interactor.fetch(
-                    photos: Photos.Request(
-                            startFromPosition: loadedPhotosCount,
-                            fetchAtMost: photosPerFetchRequest,
-                            searchCriteria: searchController.searchBar.text
-                    )
-            )
+            requestMorePhotos()
         }
     }
 }
@@ -152,22 +176,10 @@ extension BrowserViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UISearchBarDelegate
 extension BrowserViewController: UISearchBarDelegate {
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        interactor.fetch(
-                photos: Photos.Request(
-                        startFromPosition: 0,
-                        fetchAtMost: photosPerFetchRequest,
-                        searchCriteria: searchBar.text
-                )
-        )
+        requestNewPhotos()
     }
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        interactor.fetch(
-                photos: Photos.Request(
-                        startFromPosition: 0,
-                        fetchAtMost: photosPerFetchRequest,
-                        searchCriteria: nil
-                )
-        )
+        requestNewPhotos()
     }
 }

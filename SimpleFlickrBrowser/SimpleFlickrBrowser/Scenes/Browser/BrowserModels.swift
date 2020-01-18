@@ -7,10 +7,11 @@ struct Photos {
     struct Request {
         let startFromPosition: Int
         let fetchAtMost: Int
-        let searchCriteria: String?
+        let searchCriteria: String
     }
     
     struct Response {
+        let searchCriteria: String
         let photos: [Photo]
     }
     

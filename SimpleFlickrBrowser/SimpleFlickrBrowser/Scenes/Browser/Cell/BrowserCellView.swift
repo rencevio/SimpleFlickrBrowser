@@ -62,6 +62,7 @@ final class BrowserViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - View Setup
     private func setupImageView() {
         addSubview(imageView)
 

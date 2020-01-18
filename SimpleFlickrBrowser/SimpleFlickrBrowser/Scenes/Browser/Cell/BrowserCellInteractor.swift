@@ -28,13 +28,15 @@ final class BrowserCellInteractor: BrowserCellInteracting {
         photoDataProvider.getPhotoData(from: image.url) { [weak self] result in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                switch result {
-                case .success(let data):
-                    if let currentPhotoId = self.currentPhotoId, currentPhotoId == image.photoID {
+
+                if let currentPhotoId = self.currentPhotoId, currentPhotoId == image.photoID {
+                    switch result {
+                    case .success(let data):
+
                         self.presenter.present(image: PhotoImage.Response(data: data))
+                    case .failure:
+                        self.presenter.presentError()
                     }
-                case .failure:
-                    self.presenter.presentError()
                 }
             }
         }
