@@ -12,7 +12,7 @@ protocol BrowserInteracting {
 final class BrowserInteractor: BrowserInteracting {
     private let presenter: BrowserPresenting
     private let photoCollectionFetcher: PhotoCollectionFetching
-    
+
     private var currentRequest: Photos.Request?
 
     init(presenter: BrowserPresenting, photoCollectionFetcher: PhotoCollectionFetching) {
@@ -24,21 +24,21 @@ final class BrowserInteractor: BrowserInteracting {
         if currentRequest == request {
             return
         }
-        
+
         currentRequest = request
-        
+
         photoCollectionFetcher.fetchPhotos(
-                startingFrom: request.startFromPosition,
-                fetchAtMost: request.fetchAtMost,
-                matching: request.searchCriteria) { [weak presenter, request] result in
+            startingFrom: request.startFromPosition,
+            fetchAtMost: request.fetchAtMost,
+            matching: request.searchCriteria
+        ) { [weak presenter, request] result in
             switch result {
-            case .success(let photos):
+            case let .success(photos):
                 DispatchQueue.main.async { [weak presenter, request] in
                     presenter?.present(photos: Photos.Response(searchCriteria: request.searchCriteria, photos: photos))
                 }
-            case .failure(let error):
+            case let .failure(error):
                 print("Error while retrieving photos (request: \(request)): \(error)")
-                break
             }
         }
     }

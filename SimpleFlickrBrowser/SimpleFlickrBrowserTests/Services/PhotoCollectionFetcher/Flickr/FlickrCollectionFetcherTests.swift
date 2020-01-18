@@ -31,15 +31,15 @@ class FlickrCollectionFetcherTests: XCTestCase {
 
         let fetchExpectation = XCTestExpectation(description: "Fetching photos")
         var fetchResult: [Photo]!
-        
+
         photosServiceMock.getRecentResult = .success(serviceFetchResult)
 
         sut.fetchPhotos(startingFrom: startingPosition, fetchAtMost: maxFetchCount) { result in
             switch result {
-            case .success(let photos):
+            case let .success(photos):
                 fetchResult = photos
                 fetchExpectation.fulfill()
-            case .failure(let error):
+            case let .failure(error):
                 XCTFail("Unexpected error while fetching photos: \(error)")
             }
         }
@@ -66,18 +66,19 @@ class FlickrCollectionFetcherTests: XCTestCase {
 
         let fetchExpectation = XCTestExpectation(description: "Fetching photos")
         var fetchResult: [Photo]!
-        
+
         photosServiceMock.searchResult = .success(serviceFetchResult)
 
         sut.fetchPhotos(
-                startingFrom: startingPosition,
-                fetchAtMost: maxFetchCount,
-                matching: searchCriteria) { result in
+            startingFrom: startingPosition,
+            fetchAtMost: maxFetchCount,
+            matching: searchCriteria
+        ) { result in
             switch result {
-            case .success(let photos):
+            case let .success(photos):
                 fetchResult = photos
                 fetchExpectation.fulfill()
-            case .failure(let error):
+            case let .failure(error):
                 XCTFail("Unexpected error while fetching photos: \(error)")
             }
         }

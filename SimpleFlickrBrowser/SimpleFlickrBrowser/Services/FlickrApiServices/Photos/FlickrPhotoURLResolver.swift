@@ -8,7 +8,7 @@ import struct Foundation.URL
 final class FlickrPhotoURLResolver {
     static func resolveUrl(for photo: FlickrPhoto) -> URL {
         guard let url = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_q.jpg")
-                else {
+        else {
             fatalError("Failed to resolve flickr photo url (input photo: \(photo))")
         }
 

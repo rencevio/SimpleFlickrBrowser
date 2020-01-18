@@ -9,7 +9,7 @@ enum CacheError: Error {
     case nothingStored
 }
 
-protocol PhotoDataCaching: class {
+protocol PhotoDataCaching: AnyObject {
     func store(data: Data, for url: URL)
-    func retrieve(from url: URL) -> Result<Data, CacheError> 
+    func retrieve(from url: URL) -> Result<Data, CacheError>
 }

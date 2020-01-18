@@ -9,33 +9,33 @@ import Foundation
 import XCTest
 
 let validPhotosData = """
-                      { "photos": { "page": 1, "pages": "65574", "perpage": 2, "total": "131147", 
-                          "photo": [
-                            { 
-                              "id": "49400452526", 
-                              "owner": "185722792@N05", 
-                              "secret": "e6a49de5e4", 
-                              "server": "65535", 
-                              "farm": 66, 
-                              "title": "Ford 6.4 Powerstroke EGR Delete Kit", 
-                              "ispublic": 1, 
-                              "isfriend": 0, 
-                              "isfamily": 0 
-                            },
-                            { 
-                              "id": "49400436126", 
-                              "owner": "53055234@N08", 
-                              "secret": "efb927e0b1", 
-                              "server": "65535", 
-                              "farm": 66, 
-                              "title": "BWO20V", 
-                              "ispublic": 1, 
-                              "isfriend": 0, 
-                              "isfamily": 0
-                            }
-                          ]
-                      }}
-                      """.data(using: .utf8)!
+{ "photos": { "page": 1, "pages": "65574", "perpage": 2, "total": "131147", 
+    "photo": [
+      { 
+        "id": "49400452526", 
+        "owner": "185722792@N05", 
+        "secret": "e6a49de5e4", 
+        "server": "65535", 
+        "farm": 66, 
+        "title": "Ford 6.4 Powerstroke EGR Delete Kit", 
+        "ispublic": 1, 
+        "isfriend": 0, 
+        "isfamily": 0 
+      },
+      { 
+        "id": "49400436126", 
+        "owner": "53055234@N08", 
+        "secret": "efb927e0b1", 
+        "server": "65535", 
+        "farm": 66, 
+        "title": "BWO20V", 
+        "ispublic": 1, 
+        "isfriend": 0, 
+        "isfamily": 0
+      }
+    ]
+}}
+""".data(using: .utf8)!
 
 class FlickrPhotoServiceTests: XCTestCase {
     let expectationTimeout = 1.0
@@ -61,10 +61,10 @@ class FlickrPhotoServiceTests: XCTestCase {
 
         sut.getRecent(page: 1, photosPerPage: 1) { result in
             switch result {
-            case .success(let photos):
+            case let .success(photos):
                 fetchedPhotos = photos
                 fetchExpectation.fulfill()
-            case .failure(let error):
+            case let .failure(error):
                 XCTFail("Unexpected error while fetching photos: \(error)")
             }
         }
@@ -86,9 +86,9 @@ class FlickrPhotoServiceTests: XCTestCase {
 
         sut.getRecent(page: 1, photosPerPage: 1) { result in
             switch result {
-            case .success(let photos):
+            case let .success(photos):
                 XCTFail("Unexpected success while fetching photos: \(photos)")
-            case .failure(let error):
+            case let .failure(error):
                 fetchError = error
                 fetchExpectation.fulfill()
             }

@@ -33,7 +33,7 @@ final class BrowserCellInteractor: BrowserCellInteracting {
                 // Another option would be to make requests to provider cancelable
                 if let currentPhotoId = self.currentPhotoId, currentPhotoId == image.photoID {
                     switch result {
-                    case .success(let data):
+                    case let .success(data):
                         self.presenter.present(image: PhotoImage.Response(data: data))
                     case .failure:
                         self.presenter.presentError()

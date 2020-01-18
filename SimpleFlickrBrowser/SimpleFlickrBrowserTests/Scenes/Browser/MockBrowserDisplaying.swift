@@ -8,7 +8,7 @@
 class MockBrowserDisplaying: BrowserDisplaying {
     var displayNewPhotosCalls = [Photos.ViewModel]()
     var displayMorePhotosCalls = [Photos.ViewModel]()
-    
+
     func displayNew(photos: Photos.ViewModel) {
         displayNewPhotosCalls.append(photos)
     }

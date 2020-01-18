@@ -9,12 +9,12 @@ struct Photos {
         let fetchAtMost: Int
         let searchCriteria: String
     }
-    
+
     struct Response {
         let searchCriteria: String
         let photos: [Photo]
     }
-    
+
     struct ViewModel {
         let photos: [Photo]
     }

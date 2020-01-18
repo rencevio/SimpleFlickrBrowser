@@ -5,7 +5,7 @@
 
 import UIKit
 
-protocol BrowserDisplaying: class {
+protocol BrowserDisplaying: AnyObject {
     func displayNew(photos: Photos.ViewModel)
     func displayMore(photos: Photos.ViewModel)
 }
@@ -39,10 +39,10 @@ final class BrowserViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
 
         layout.sectionInset = UIEdgeInsets(
-                top: LayoutConstants.padding,
-                left: LayoutConstants.padding,
-                bottom: LayoutConstants.padding,
-                right: LayoutConstants.padding
+            top: LayoutConstants.padding,
+            left: LayoutConstants.padding,
+            bottom: LayoutConstants.padding,
+            right: LayoutConstants.padding
         )
 
         layout.minimumInteritemSpacing = LayoutConstants.interitemSpacing
@@ -81,6 +81,7 @@ final class BrowserViewController: UIViewController {
     }
 
     // MARK: - View Setup
+
     private func setupCollectionView() {
         view.addSubview(collectionView)
 
@@ -104,28 +105,30 @@ final class BrowserViewController: UIViewController {
     }
 
     // MARK: - Data requesting
+
     func requestMorePhotos() {
         interactor.fetch(
-                photos: Photos.Request(
-                        startFromPosition: dataSource.photoCount,
-                        fetchAtMost: photosPerFetchRequest,
-                        searchCriteria: searchController.searchBar.text ?? ""
-                )
+            photos: Photos.Request(
+                startFromPosition: dataSource.photoCount,
+                fetchAtMost: photosPerFetchRequest,
+                searchCriteria: searchController.searchBar.text ?? ""
+            )
         )
     }
 
     func requestNewPhotos() {
         interactor.fetch(
-                photos: Photos.Request(
-                        startFromPosition: 0,
-                        fetchAtMost: photosPerFetchRequest,
-                        searchCriteria: searchController.searchBar.text ?? ""
-                )
+            photos: Photos.Request(
+                startFromPosition: 0,
+                fetchAtMost: photosPerFetchRequest,
+                searchCriteria: searchController.searchBar.text ?? ""
+            )
         )
     }
 }
 
 // MARK: - BrowserDisplaying
+
 extension BrowserViewController: BrowserDisplaying {
     func displayNew(photos: Photos.ViewModel) {
         dataSource.set(photos: photos.photos)
@@ -139,11 +142,12 @@ extension BrowserViewController: BrowserDisplaying {
 
         dataSource.add(photos: photos.photos)
 
-        collectionView.insertItems(at: (currentPhotoCount..<currentPhotoCount + photos.photos.count).map { IndexPath(item: $0, section: 0) })
+        collectionView.insertItems(at: (currentPhotoCount ..< currentPhotoCount + photos.photos.count).map { IndexPath(item: $0, section: 0) })
     }
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension BrowserViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
@@ -159,6 +163,7 @@ extension BrowserViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension BrowserViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -174,6 +179,7 @@ extension BrowserViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - UISearchBarDelegate
+
 extension BrowserViewController: UISearchBarDelegate {
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         requestNewPhotos()

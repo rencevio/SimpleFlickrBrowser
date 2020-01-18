@@ -10,11 +10,11 @@ struct PhotoImage {
         let photoID: Photo.ID
         let url: URL
     }
-    
+
     struct Response {
         let data: Data
     }
-    
+
     struct ViewModel {
         let image: UIImage
     }

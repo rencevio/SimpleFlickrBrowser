@@ -24,25 +24,27 @@ final class FlickrPhotosService: FlickrPhotosFetching {
 
     func getRecent(page: Int, photosPerPage: Int, completion: @escaping Completion) {
         let url = FlickrApiURLResolver.build(
-                method: .photosGetRecent,
-                apiKey: apiKey,
-                queryParameters: [
-                    .page: String(page),
-                    .perPage: String(photosPerPage)
-                ])
+            method: .photosGetRecent,
+            apiKey: apiKey,
+            queryParameters: [
+                .page: String(page),
+                .perPage: String(photosPerPage),
+            ]
+        )
 
         fetchFrom(url: url, completion: completion)
     }
 
     func search(matching text: String, page: Int, photosPerPage: Int, completion: @escaping Completion) {
         let url = FlickrApiURLResolver.build(
-                method: .photosSearch,
-                apiKey: apiKey,
-                queryParameters: [
-                    .text: text,
-                    .page: String(page),
-                    .perPage: String(photosPerPage)
-                ])
+            method: .photosSearch,
+            apiKey: apiKey,
+            queryParameters: [
+                .text: text,
+                .page: String(page),
+                .perPage: String(photosPerPage),
+            ]
+        )
 
         fetchFrom(url: url, completion: completion)
     }
@@ -54,9 +56,9 @@ final class FlickrPhotosService: FlickrPhotosFetching {
             let photosResponse = self.parse(response: result)
 
             switch photosResponse {
-            case .success(let response):
+            case let .success(response):
                 completion(.success(response.photos.photo))
-            case .failure(let error):
+            case let .failure(error):
                 completion(.failure(error))
             }
         }
@@ -64,14 +66,14 @@ final class FlickrPhotosService: FlickrPhotosFetching {
 
     private func parse(response: Result<Data, Http.RequestError>) -> Result<FlickrPhotosResponse, Error> {
         switch response {
-        case .success(let data):
+        case let .success(data):
             do {
                 let photosResponse = try JSONDecoder().decode(FlickrPhotosResponse.self, from: data)
                 return .success(photosResponse)
-            } catch (let error) {
+            } catch {
                 return .failure(error)
             }
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }

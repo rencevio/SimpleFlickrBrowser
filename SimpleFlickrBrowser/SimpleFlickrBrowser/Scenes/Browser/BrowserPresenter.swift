@@ -3,7 +3,7 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
-protocol BrowserPresenting: class {
+protocol BrowserPresenting: AnyObject {
     func present(photos: Photos.Response)
 }
 

@@ -5,8 +5,8 @@
 
 @testable import SimpleFlickrBrowser
 
-import XCTest
 import Foundation
+import XCTest
 
 class PhotoDataProviderTests: XCTestCase {
     let expectationTimeout = 1.0
@@ -32,9 +32,9 @@ class PhotoDataProviderTests: XCTestCase {
 
         sut.getPhotoData(from: url) { result in
             switch result {
-            case .success(let data):
+            case let .success(data):
                 XCTAssertEqual(cachedData, data)
-            case .failure(let error):
+            case let .failure(error):
                 XCTFail("Unexpected error while fetching photo: \(error)")
             }
 
@@ -61,9 +61,9 @@ class PhotoDataProviderTests: XCTestCase {
 
         sut.getPhotoData(from: url) { result in
             switch result {
-            case .success(let data):
+            case let .success(data):
                 XCTAssertEqual(retrievedData, data)
-            case .failure(let error):
+            case let .failure(error):
                 XCTFail("Unexpected error while fetching photo: \(error)")
             }
 
@@ -73,7 +73,7 @@ class PhotoDataProviderTests: XCTestCase {
         wait(for: [fetchExpectation], timeout: expectationTimeout)
 
         XCTAssertEqual(retrieverMock.retrieveCalls, [url])
-        
+
         XCTAssertEqual(cacheMock.retrieveCalls, [url])
         XCTAssertEqual(cacheMock.storeCalls.count, 1)
         XCTAssertTrue(cacheMock.storeCalls[0] == (url, retrievedData))

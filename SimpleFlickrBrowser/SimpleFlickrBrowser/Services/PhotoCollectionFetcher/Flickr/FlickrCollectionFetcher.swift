@@ -24,16 +24,16 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
 
         if let searchCriteria = searchCriteria, !searchCriteria.isEmpty {
             flickrPhotosService.search(
-                    matching: searchCriteria,
-                    page: page,
-                    photosPerPage: maxFetchCount,
-                    completion: transformFetchResult(completion)
+                matching: searchCriteria,
+                page: page,
+                photosPerPage: maxFetchCount,
+                completion: transformFetchResult(completion)
             )
         } else {
             flickrPhotosService.getRecent(
-                    page: page,
-                    photosPerPage: maxFetchCount,
-                    completion: transformFetchResult(completion)
+                page: page,
+                photosPerPage: maxFetchCount,
+                completion: transformFetchResult(completion)
             )
         }
     }
@@ -41,9 +41,9 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
     private func transformFetchResult(_ completion: @escaping Completion) -> FlickrPhotosService.Completion {
         { result in
             switch result {
-            case .success(let photos):
+            case let .success(photos):
                 completion(.success(photos.map { Photo(id: $0.id, image: FlickrPhotoURLResolver.resolveUrl(for: $0)) }))
-            case .failure(let error):
+            case let .failure(error):
                 completion(.failure(error))
             }
         }

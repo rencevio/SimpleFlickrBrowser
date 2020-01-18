@@ -5,7 +5,7 @@
 
 import UIKit
 
-protocol BrowserCellPresenting: class {
+protocol BrowserCellPresenting: AnyObject {
     func present(image: PhotoImage.Response)
     func presentLoading()
     func presentError()
@@ -16,12 +16,12 @@ final class BrowserCellPresenter: BrowserCellPresenting {
 
     func present(image: PhotoImage.Response) {
         guard let view = view,
-              let image = UIImage(data: image.data)
-                else { return }
+            let image = UIImage(data: image.data)
+        else { return }
 
         view.display(image: PhotoImage.ViewModel(image: image))
     }
-    
+
     func presentLoading() {
         view?.displayLoading()
     }

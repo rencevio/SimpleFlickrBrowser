@@ -3,7 +3,6 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
-
 final class FlickrCollectionFetcherFactory: PhotoCollectionFetcherCreating {
     func createCollectionFetcher() -> PhotoCollectionFetching {
         let httpClient = Http.Client()

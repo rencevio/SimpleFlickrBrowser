@@ -27,13 +27,13 @@ enum Http {
                     } else {
                         completion(.failure(.noData))
                     }
-                    
+
                     return
                 }
 
                 completion(.success(data))
             }
-            
+
             task.resume()
         }
     }

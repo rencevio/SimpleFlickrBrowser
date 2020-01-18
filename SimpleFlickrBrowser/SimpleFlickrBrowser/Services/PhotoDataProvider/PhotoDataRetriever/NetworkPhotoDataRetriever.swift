@@ -15,9 +15,9 @@ final class NetworkPhotoDataRetriever: PhotoDataRetrieving {
     func retrieve(from url: URL, completion: @escaping Completion) {
         httpClient.get(url: url) { result in
             switch result {
-            case .success(let data):
+            case let .success(data):
                 completion(.success(data))
-            case .failure(let error):
+            case let .failure(error):
                 completion(.failure(error))
             }
         }

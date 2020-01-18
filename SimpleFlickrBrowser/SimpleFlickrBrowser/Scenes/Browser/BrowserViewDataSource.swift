@@ -26,6 +26,7 @@ final class BrowserViewDataSource: NSObject {
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension BrowserViewDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photos.count
@@ -43,6 +44,7 @@ extension BrowserViewDataSource: UICollectionViewDataSource {
 }
 
 // MARK: - BrowserDataSourcing
+
 extension BrowserViewDataSource: BrowserDataSourcing {
     var photoCount: Int {
         photos.count
@@ -56,13 +58,14 @@ extension BrowserViewDataSource: BrowserDataSourcing {
     func add(photos: [Photo]) {
         self.photos.append(contentsOf: photos)
     }
-    
+
     func set(photos: [Photo]) {
         self.photos = photos
     }
 }
 
 // MARK: - BrowserViewCell dequeuing
+
 extension BrowserViewDataSource {
     func dequeueBrowserCell(from collectionView: UICollectionView, at indexPath: IndexPath) -> BrowserViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BrowserViewCell.identifier, for: indexPath)

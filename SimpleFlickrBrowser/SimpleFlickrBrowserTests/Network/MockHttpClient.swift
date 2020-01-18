@@ -20,4 +20,4 @@ class MockHttpClient: HttpCommunicator {
 
         completion(result)
     }
-} 
+}

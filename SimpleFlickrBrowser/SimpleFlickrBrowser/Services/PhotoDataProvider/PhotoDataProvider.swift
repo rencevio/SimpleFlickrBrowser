@@ -14,7 +14,7 @@ protocol PhotoDataProviding {
 final class PhotoDataProvider: PhotoDataProviding {
     private let cache: PhotoDataCaching
     private let retriever: PhotoDataRetrieving
-    
+
     private let operatingQueue = DispatchQueue(label: "\(PhotoDataProvider.self)OperatingQueue")
 
     init(cache: PhotoDataCaching, retriever: PhotoDataRetrieving) {
@@ -23,13 +23,13 @@ final class PhotoDataProvider: PhotoDataProviding {
     }
 
     func getPhotoData(from url: URL, completion: @escaping Completion) {
-        operatingQueue.async { [weak self] in 
+        operatingQueue.async { [weak self] in
             guard let self = self else { return }
-            
+
             let cacheResult = self.cache.retrieve(from: url)
 
             switch cacheResult {
-            case .success(let data):
+            case let .success(data):
                 completion(.success(data))
             case .failure:
                 self.retrievePhotoData(from: url, completion: completion)
@@ -40,10 +40,10 @@ final class PhotoDataProvider: PhotoDataProviding {
     private func retrievePhotoData(from url: URL, completion: @escaping Completion) {
         retriever.retrieve(from: url) { [weak cache] result in
             switch result {
-            case .success(let data):
+            case let .success(data):
                 cache?.store(data: data, for: url)
                 completion(.success(data))
-            case .failure(let error):
+            case let .failure(error):
                 completion(.failure(error))
             }
         }

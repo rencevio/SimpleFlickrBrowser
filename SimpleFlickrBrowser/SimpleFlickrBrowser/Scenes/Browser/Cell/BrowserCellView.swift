@@ -5,7 +5,7 @@
 
 import UIKit
 
-protocol BrowserCellDisplaying: class {
+protocol BrowserCellDisplaying: AnyObject {
     func display(image: PhotoImage.ViewModel)
     func displayLoading()
 }
@@ -33,7 +33,7 @@ final class BrowserViewCell: UICollectionViewCell {
 
     lazy var placeholderView: UIView = {
         let view = UIView()
-    
+
         view.backgroundColor = .white
 
         return view
@@ -53,6 +53,7 @@ final class BrowserViewCell: UICollectionViewCell {
     }
 
     // MARK: - View Setup
+
     private func setupImageView() {
         addSubview(imageView)
 
@@ -79,7 +80,7 @@ final class BrowserViewCell: UICollectionViewCell {
             placeholderView.isHidden = false
             imageView.isHidden = true
 
-        case .image(let image):
+        case let .image(image):
             imageView.isHidden = false
             placeholderView.isHidden = true
 
@@ -89,6 +90,7 @@ final class BrowserViewCell: UICollectionViewCell {
 }
 
 // MARK: - BrowserCellDisplaying
+
 extension BrowserViewCell: BrowserCellDisplaying {
     func display(image: PhotoImage.ViewModel) {
         set(state: .image(image.image))
@@ -100,6 +102,7 @@ extension BrowserViewCell: BrowserCellDisplaying {
 }
 
 // MARK: - ConfigurableBrowserCell
+
 extension BrowserViewCell: ConfigurableBrowserCell {
     func configure(interactor: BrowserCellInteracting, photo: Photo) {
         self.interactor = interactor
