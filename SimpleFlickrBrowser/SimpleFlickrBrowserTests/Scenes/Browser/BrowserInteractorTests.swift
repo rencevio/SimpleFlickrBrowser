@@ -22,7 +22,7 @@ class BrowserInteractorTests: XCTestCase {
         sut = BrowserInteractor(presenter: presenterMock, photoCollectionFetcher: collectionFetcherMock)
     }
 
-    func test_fetchTwiceWithSameParams_fetchesAndPresentsOnlyOnce() {
+    func test_fetch_fetchAgainImmediatelyWithSameParams_fetchesAndPresentsOnlyOnce() {
         let fetchRequest = Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
 
         collectionFetcherMock.fetchPhotoResult = .success([])
@@ -34,5 +34,20 @@ class BrowserInteractorTests: XCTestCase {
 
         XCTAssertEqual(presenterMock.presentPhotosCalls.count, 1)
         XCTAssertEqual(collectionFetcherMock.fetchPhotosCalls.count, 1)
+    }
+
+    func test_fetch_fetchAgainAfterFirstRequestFinished_fetchesAndPresentsTwice() {
+        let fetchRequest = Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
+
+        collectionFetcherMock.fetchPhotoResult = .success([])
+
+        sut.fetch(photos: fetchRequest)
+        awaitMainQueueResolution()
+
+        sut.fetch(photos: fetchRequest)
+        awaitMainQueueResolution()
+
+        XCTAssertEqual(presenterMock.presentPhotosCalls.count, 2)
+        XCTAssertEqual(collectionFetcherMock.fetchPhotosCalls.count, 2)
     }
 }

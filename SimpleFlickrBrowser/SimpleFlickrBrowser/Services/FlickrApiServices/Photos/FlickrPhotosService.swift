@@ -57,7 +57,9 @@ final class FlickrPhotosService: FlickrPhotosFetching {
 
             switch photosResponse {
             case let .success(response):
-                completion(.success(response.photos.photo))
+                let filteredPhotos = response.photos.photo.filter { $0.farm != 0 }
+
+                completion(.success(filteredPhotos))
             case let .failure(error):
                 completion(.failure(error))
             }
