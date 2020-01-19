@@ -309,14 +309,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		62DE9CFCEE30E01697165808 /* Services */ = {
+		62DE9CFCEE30E01697165808 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
 				62DE980BA7083F32DC796456 /* PhotoDataProvider */,
 				62DE9AABA2EDCDF4B92072F7 /* Extensions */,
 				62DE971DBB6088A895668352 /* PhotoCollectionFetcher */,
 			);
-			path = Services;
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		62DE9D2EA8B3AF5CAFA93B59 /* PhotoDataRetriever */ = {
@@ -347,14 +347,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		62DE9E4975BBE450619E428D /* Services */ = {
+		62DE9E4975BBE450619E428D /* Workers */ = {
 			isa = PBXGroup;
 			children = (
 				62DE9D5E58D61D76A56A0A7C /* PhotoDataProvider */,
 				62DE98C735D3CC9E8C88071A /* FlickrApiServices */,
 				62DE932EFD760F664BE020DD /* PhotoCollectionFetcher */,
 			);
-			path = Services;
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		62DE9ED1568E25802A697C02 /* Cell */ = {
@@ -413,7 +413,7 @@
 				944AC04023CFA551009FD611 /* Resources */,
 				944AC01D23CE0E9C009FD611 /* AppDelegate.swift */,
 				62DE94A9AA78F83D54078368 /* RootDependencies.swift */,
-				62DE9E4975BBE450619E428D /* Services */,
+				62DE9E4975BBE450619E428D /* Workers */,
 				62DE9C11F52BBF38DEB44438 /* Network */,
 				62DE9086A97F986E80E89C32 /* Models */,
 			);
@@ -424,7 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				944AC03623CE0E9E009FD611 /* Info.plist */,
-				62DE9CFCEE30E01697165808 /* Services */,
+				62DE9CFCEE30E01697165808 /* Workers */,
 				62DE92353EFEFAB905C719AC /* Scenes */,
 				62DE9457002E4150E09510C5 /* FlickrApiServices */,
 				62DE9DFCAAFF045E8D9D30D4 /* Network */,

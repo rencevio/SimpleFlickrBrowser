@@ -9,5 +9,5 @@ struct Photo {
     typealias ID = String
 
     let id: ID
-    let image: URL
+    let imageURL: URL
 }

@@ -6,7 +6,7 @@
 import Foundation
 
 protocol BrowserCellInteracting {
-    func fetch(image: PhotoImage.Request)
+    func fetch(image: BrowserCellModels.PhotoImage.Request)
 }
 
 final class BrowserCellInteractor: BrowserCellInteracting {
@@ -20,7 +20,7 @@ final class BrowserCellInteractor: BrowserCellInteracting {
         self.photoDataProvider = photoDataProvider
     }
 
-    func fetch(image: PhotoImage.Request) {
+    func fetch(image: BrowserCellModels.PhotoImage.Request) {
         presenter.presentLoading()
 
         currentPhotoId = image.photoID
@@ -34,7 +34,7 @@ final class BrowserCellInteractor: BrowserCellInteracting {
                 if let currentPhotoId = self.currentPhotoId, currentPhotoId == image.photoID {
                     switch result {
                     case let .success(data):
-                        self.presenter.present(image: PhotoImage.Response(data: data))
+                        self.presenter.present(image: BrowserCellModels.PhotoImage.Response(data: data))
                     case .failure:
                         self.presenter.presentError()
                     }

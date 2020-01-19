@@ -5,17 +5,19 @@
 
 import UIKit
 
-struct PhotoImage {
-    struct Request {
-        let photoID: Photo.ID
-        let url: URL
-    }
+struct BrowserCellModels {
+    struct PhotoImage {
+        struct Request {
+            let photoID: Photo.ID
+            let url: URL
+        }
 
-    struct Response {
-        let data: Data
-    }
+        struct Response {
+            let data: Data
+        }
 
-    struct ViewModel {
-        let image: UIImage
+        struct ViewModel {
+            let image: UIImage
+        }
     }
 }

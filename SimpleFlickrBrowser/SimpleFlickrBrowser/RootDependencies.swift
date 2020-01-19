@@ -4,8 +4,8 @@
 // Copyright (c) 2020 rencevio. All rights reserved.
 
 final class RootDependencies {
-    let photoDataProvider: PhotoDataProviding
-    let photoCollectionFetcher: PhotoCollectionFetching
+    private let photoDataProvider: PhotoDataProviding
+    private let photoCollectionFetcher: PhotoCollectionFetching
 
     init() {
         let photoDataProviderFactory = PhotoDataProviderFactory()

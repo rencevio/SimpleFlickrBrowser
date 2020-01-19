@@ -8,7 +8,7 @@ protocol BrowserCellConfiguring {
 }
 
 final class BrowserCellConfigurator: BrowserCellConfiguring {
-    let photoDataProvider: PhotoDataProviding
+    private let photoDataProvider: PhotoDataProviding
 
     init(photoDataProvider: PhotoDataProviding) {
         self.photoDataProvider = photoDataProvider

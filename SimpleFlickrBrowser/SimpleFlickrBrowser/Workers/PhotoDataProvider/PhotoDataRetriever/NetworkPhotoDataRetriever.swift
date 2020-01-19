@@ -6,7 +6,7 @@
 import Foundation
 
 final class NetworkPhotoDataRetriever: PhotoDataRetrieving {
-    let httpClient: HttpCommunicator
+    private let httpClient: HttpCommunicator
 
     init(httpClient: HttpCommunicator) {
         self.httpClient = httpClient

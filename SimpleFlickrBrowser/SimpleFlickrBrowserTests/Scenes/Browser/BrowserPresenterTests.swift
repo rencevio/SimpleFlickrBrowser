@@ -22,18 +22,18 @@ class BrowserPresenterTests: XCTestCase {
     }
 
     func test_presentPhotos_startingFromZero_dataIsReset() {
-        let photo = Photo(id: "id", image: URL(string: "www.not-a-website.com")!)
+        let photo = Photo(id: "id", imageURL: URL(string: "www.not-a-website.com")!)
 
-        sut.present(photos: Photos.Response(startingPosition: 0, photos: [photo]))
+        sut.present(photos: BrowserModels.Photos.Response(startingPosition: 0, photos: [photo]))
 
         XCTAssertEqual(displayingMock.displayMorePhotosCalls.count, 0)
         XCTAssertEqual(displayingMock.displayNewPhotosCalls.count, 1)
     }
 
     func test_presentPhotosTwice_startingFromNonZero_dataIsUpdated() {
-        let photo = Photo(id: "id", image: URL(string: "www.not-a-website.com")!)
+        let photo = Photo(id: "id", imageURL: URL(string: "www.not-a-website.com")!)
 
-        sut.present(photos: Photos.Response(startingPosition: 1, photos: [photo]))
+        sut.present(photos: BrowserModels.Photos.Response(startingPosition: 1, photos: [photo]))
 
         XCTAssertEqual(displayingMock.displayMorePhotosCalls.count, 1)
         XCTAssertEqual(displayingMock.displayNewPhotosCalls.count, 0)

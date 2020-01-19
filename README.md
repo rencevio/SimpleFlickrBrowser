@@ -9,7 +9,7 @@ Two VIP scenes are defined in the app:
 * **Browser** - Encapsulates a collection view, manages photo metadata retrieval, search and refresh controls.
 * **BrowserCell** - Represents a collection view cell as a part of **Browser**'s collection view. Responsible for fetching of the photo's data and handling of the cell recycle mechanics.
 
-Apart from the scenes, the core of the app also consists of services that facilitate image retrieval and caching:
+Apart from the scenes, the core of the app also consists of workers that facilitate image retrieval and caching:
 * **FlickrApiServices** - OO wrappers around [Flickr's API](https://www.flickr.com/services/api/). Currently contains only **FlickrPhotosService**.
 * **PhotoCollectionFetcher** - responsible for retrieving metadata of recent photos or photos that match a given search criteria.
 * **PhotoDataProvider** - responsible for fetching photo data from a given URL as well as data caching.

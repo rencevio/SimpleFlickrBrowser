@@ -6,21 +6,21 @@
 import Foundation
 
 protocol BrowserInteracting {
-    func fetch(photos request: Photos.Request)
+    func fetch(photos request: BrowserModels.Photos.Request)
 }
 
 final class BrowserInteractor: BrowserInteracting {
     private let presenter: BrowserPresenting
     private let photoCollectionFetcher: PhotoCollectionFetching
 
-    private var currentRequest: Photos.Request?
+    private var currentRequest: BrowserModels.Photos.Request?
 
     init(presenter: BrowserPresenting, photoCollectionFetcher: PhotoCollectionFetching) {
         self.presenter = presenter
         self.photoCollectionFetcher = photoCollectionFetcher
     }
 
-    func fetch(photos request: Photos.Request) {
+    func fetch(photos request: BrowserModels.Photos.Request) {
         if currentRequest == request {
             return
         }
@@ -41,7 +41,7 @@ final class BrowserInteractor: BrowserInteracting {
                         self.currentRequest = nil
                     }
 
-                    let response = Photos.Response(startingPosition: request.startFromPosition, photos: photos)
+                    let response = BrowserModels.Photos.Response(startingPosition: request.startFromPosition, photos: photos)
 
                     self.presenter.present(photos: response)
                 }

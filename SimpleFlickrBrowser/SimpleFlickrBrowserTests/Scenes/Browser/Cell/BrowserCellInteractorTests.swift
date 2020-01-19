@@ -28,7 +28,7 @@ class BrowserCellInteractorTests: XCTestCase {
 
         photoDataProvider.getPhotoDataResult = .success(photoData)
 
-        sut.fetch(image: PhotoImage.Request(photoID: "id", url: url))
+        sut.fetch(image: BrowserCellModels.PhotoImage.Request(photoID: "id", url: url))
 
         awaitMainQueueResolution()
 
@@ -49,7 +49,7 @@ class BrowserCellInteractorTests: XCTestCase {
 
         photoDataProvider.getPhotoDataResult = .failure(RetrievalError.undefined)
 
-        sut.fetch(image: PhotoImage.Request(photoID: "id", url: url))
+        sut.fetch(image: BrowserCellModels.PhotoImage.Request(photoID: "id", url: url))
 
         awaitMainQueueResolution()
 
@@ -66,11 +66,11 @@ class BrowserCellInteractorTests: XCTestCase {
 
         let firstImageData = "1".data(using: .utf8)!
         photoDataProvider.getPhotoDataResult = .success(firstImageData)
-        sut.fetch(image: PhotoImage.Request(photoID: "id1", url: url))
+        sut.fetch(image: BrowserCellModels.PhotoImage.Request(photoID: "id1", url: url))
 
         let secondImageData = "2".data(using: .utf8)!
         photoDataProvider.getPhotoDataResult = .success(secondImageData)
-        sut.fetch(image: PhotoImage.Request(photoID: "id2", url: url))
+        sut.fetch(image: BrowserCellModels.PhotoImage.Request(photoID: "id2", url: url))
 
         awaitMainQueueResolution()
 

@@ -6,7 +6,7 @@
 import UIKit
 
 protocol BrowserCellPresenting: AnyObject {
-    func present(image: PhotoImage.Response)
+    func present(image: BrowserCellModels.PhotoImage.Response)
     func presentLoading()
     func presentError()
 }
@@ -14,12 +14,12 @@ protocol BrowserCellPresenting: AnyObject {
 final class BrowserCellPresenter: BrowserCellPresenting {
     weak var view: BrowserCellDisplaying?
 
-    func present(image: PhotoImage.Response) {
+    func present(image: BrowserCellModels.PhotoImage.Response) {
         guard let view = view,
             let image = UIImage(data: image.data)
         else { return }
 
-        view.display(image: PhotoImage.ViewModel(image: image))
+        view.display(image: BrowserCellModels.PhotoImage.ViewModel(image: image))
     }
 
     func presentLoading() {

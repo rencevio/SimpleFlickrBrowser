@@ -23,7 +23,7 @@ class BrowserInteractorTests: XCTestCase {
     }
 
     func test_fetch_fetchAgainImmediatelyWithSameParams_fetchesAndPresentsOnlyOnce() {
-        let fetchRequest = Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
+        let fetchRequest = BrowserModels.Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
 
         collectionFetcherMock.fetchPhotoResult = .success([])
 
@@ -37,7 +37,7 @@ class BrowserInteractorTests: XCTestCase {
     }
 
     func test_fetch_fetchAgainAfterFirstRequestFinished_fetchesAndPresentsTwice() {
-        let fetchRequest = Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
+        let fetchRequest = BrowserModels.Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
 
         collectionFetcherMock.fetchPhotoResult = .success([])
 

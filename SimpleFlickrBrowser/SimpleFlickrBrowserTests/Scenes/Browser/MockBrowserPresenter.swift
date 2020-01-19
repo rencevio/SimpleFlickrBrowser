@@ -8,9 +8,9 @@
 import Foundation
 
 final class MockBrowserPresenter: BrowserPresenting {
-    var presentPhotosCalls = [Photos.Response]()
+    var presentPhotosCalls = [BrowserModels.Photos.Response]()
 
-    func present(photos: Photos.Response) {
+    func present(photos: BrowserModels.Photos.Response) {
         presentPhotosCalls.append(photos)
     }
 }

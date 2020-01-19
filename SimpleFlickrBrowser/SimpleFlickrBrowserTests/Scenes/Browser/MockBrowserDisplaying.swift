@@ -6,14 +6,14 @@
 @testable import SimpleFlickrBrowser
 
 class MockBrowserDisplaying: BrowserDisplaying {
-    var displayNewPhotosCalls = [Photos.ViewModel]()
-    var displayMorePhotosCalls = [Photos.ViewModel]()
+    var displayNewPhotosCalls = [BrowserModels.Photos.ViewModel]()
+    var displayMorePhotosCalls = [BrowserModels.Photos.ViewModel]()
 
-    func displayNew(photos: Photos.ViewModel) {
+    func displayNew(photos: BrowserModels.Photos.ViewModel) {
         displayNewPhotosCalls.append(photos)
     }
 
-    func displayMore(photos: Photos.ViewModel) {
+    func displayMore(photos: BrowserModels.Photos.ViewModel) {
         displayMorePhotosCalls.append(photos)
     }
 }

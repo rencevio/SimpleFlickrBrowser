@@ -42,7 +42,7 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
         { result in
             switch result {
             case let .success(photos):
-                completion(.success(photos.map { Photo(id: $0.id, image: FlickrPhotoURLResolver.resolveUrl(for: $0)) }))
+                completion(.success(photos.map { Photo(id: $0.id, imageURL: FlickrPhotoURLResolver.resolveUrl(for: $0)) }))
             case let .failure(error):
                 completion(.failure(error))
             }

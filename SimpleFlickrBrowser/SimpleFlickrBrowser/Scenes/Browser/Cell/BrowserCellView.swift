@@ -6,7 +6,7 @@
 import UIKit
 
 protocol BrowserCellDisplaying: AnyObject {
-    func display(image: PhotoImage.ViewModel)
+    func display(image: BrowserCellModels.PhotoImage.ViewModel)
     func displayLoading()
 }
 
@@ -92,7 +92,7 @@ final class BrowserViewCell: UICollectionViewCell {
 // MARK: - BrowserCellDisplaying
 
 extension BrowserViewCell: BrowserCellDisplaying {
-    func display(image: PhotoImage.ViewModel) {
+    func display(image: BrowserCellModels.PhotoImage.ViewModel) {
         set(state: .image(image.image))
     }
 
@@ -107,6 +107,6 @@ extension BrowserViewCell: ConfigurableBrowserCell {
     func configure(interactor: BrowserCellInteracting, photo: Photo) {
         self.interactor = interactor
 
-        interactor.fetch(image: PhotoImage.Request(photoID: photo.id, url: photo.image))
+        interactor.fetch(image: BrowserCellModels.PhotoImage.Request(photoID: photo.id, url: photo.imageURL))
     }
 }

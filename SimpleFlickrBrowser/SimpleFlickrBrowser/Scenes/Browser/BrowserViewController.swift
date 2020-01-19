@@ -6,8 +6,8 @@
 import UIKit
 
 protocol BrowserDisplaying: AnyObject {
-    func displayNew(photos: Photos.ViewModel)
-    func displayMore(photos: Photos.ViewModel)
+    func displayNew(photos: BrowserModels.Photos.ViewModel)
+    func displayMore(photos: BrowserModels.Photos.ViewModel)
 }
 
 private struct LayoutConstants {
@@ -121,7 +121,7 @@ final class BrowserViewController: UIViewController {
 
     func requestMorePhotos() {
         interactor.fetch(
-            photos: Photos.Request(
+            photos: BrowserModels.Photos.Request(
                 startFromPosition: dataSource.photoCount,
                 fetchAtMost: photosPerFetchRequest,
                 searchCriteria: searchController.searchBar.text ?? ""
@@ -131,7 +131,7 @@ final class BrowserViewController: UIViewController {
 
     func requestNewPhotos() {
         interactor.fetch(
-            photos: Photos.Request(
+            photos: BrowserModels.Photos.Request(
                 startFromPosition: 0,
                 fetchAtMost: photosPerFetchRequest,
                 searchCriteria: searchController.searchBar.text ?? ""
@@ -143,7 +143,7 @@ final class BrowserViewController: UIViewController {
 // MARK: - BrowserDisplaying
 
 extension BrowserViewController: BrowserDisplaying {
-    func displayNew(photos: Photos.ViewModel) {
+    func displayNew(photos: BrowserModels.Photos.ViewModel) {
         dataSource.set(photos: photos.photos)
 
         refreshControl.endRefreshing()
@@ -152,7 +152,7 @@ extension BrowserViewController: BrowserDisplaying {
         collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
     }
 
-    func displayMore(photos: Photos.ViewModel) {
+    func displayMore(photos: BrowserModels.Photos.ViewModel) {
         let currentPhotoCount = dataSource.photoCount
 
         dataSource.add(photos: photos.photos)
