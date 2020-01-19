@@ -10,13 +10,10 @@ protocol BrowserPresenting: AnyObject {
 final class BrowserPresenter: BrowserPresenting {
     weak var view: BrowserDisplaying?
 
-    private var currentSearchQuery: String = ""
-
     func present(photos: Photos.Response) {
         let viewModel = Photos.ViewModel(photos: photos.photos)
 
-        if currentSearchQuery != photos.searchCriteria {
-            currentSearchQuery = photos.searchCriteria
+        if photos.startingPosition == 0 {
             view?.displayNew(photos: viewModel)
         } else {
             view?.displayMore(photos: viewModel)

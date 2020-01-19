@@ -31,11 +31,19 @@ final class BrowserInteractor: BrowserInteracting {
             startingFrom: request.startFromPosition,
             fetchAtMost: request.fetchAtMost,
             matching: request.searchCriteria
-        ) { [weak presenter, request] result in
+        ) { result in
             switch result {
             case let .success(photos):
-                DispatchQueue.main.async { [weak presenter, request] in
-                    presenter?.present(photos: Photos.Response(searchCriteria: request.searchCriteria, photos: photos))
+                DispatchQueue.main.async { [weak self, request] in
+                    guard let self = self else { return }
+
+                    if self.currentRequest == request {
+                        self.currentRequest = nil
+                    }
+
+                    let response = Photos.Response(startingPosition: request.startFromPosition, photos: photos)
+
+                    self.presenter.present(photos: response)
                 }
             case let .failure(error):
                 print("Error while retrieving photos (request: \(request)): \(error)")

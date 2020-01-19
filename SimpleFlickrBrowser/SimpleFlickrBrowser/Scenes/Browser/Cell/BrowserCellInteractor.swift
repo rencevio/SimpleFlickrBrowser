@@ -25,7 +25,7 @@ final class BrowserCellInteractor: BrowserCellInteracting {
 
         currentPhotoId = image.photoID
 
-        photoDataProvider.getPhotoData(from: image.url) { [weak self] result in
+        photoDataProvider.getPhotoData(from: image.url) { result in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
 

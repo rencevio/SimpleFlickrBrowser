@@ -60,6 +60,12 @@ final class BrowserViewController: UIViewController {
         return view
     }()
 
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl(frame: .zero)
+
+        return control
+    }()
+
     init(interactor: BrowserInteracting, dataSource: BrowserDataSourcing) {
         self.interactor = interactor
         self.dataSource = dataSource
@@ -76,6 +82,7 @@ final class BrowserViewController: UIViewController {
 
         setupCollectionView()
         setupSearchController()
+        setupRefreshControl()
 
         requestNewPhotos()
     }
@@ -102,6 +109,12 @@ final class BrowserViewController: UIViewController {
 
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+
+    private func setupRefreshControl() {
+        collectionView.refreshControl = refreshControl
+
+        refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
 
     // MARK: - Data requesting
@@ -133,6 +146,8 @@ extension BrowserViewController: BrowserDisplaying {
     func displayNew(photos: Photos.ViewModel) {
         dataSource.set(photos: photos.photos)
 
+        refreshControl.endRefreshing()
+
         collectionView.reloadData()
         collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
     }
@@ -142,7 +157,7 @@ extension BrowserViewController: BrowserDisplaying {
 
         dataSource.add(photos: photos.photos)
 
-        collectionView.insertItems(at: (currentPhotoCount ..< currentPhotoCount + photos.photos.count).map { IndexPath(item: $0, section: 0) })
+        collectionView.insertItems(at: (0 ..< photos.photos.count).map { IndexPath(item: $0 + currentPhotoCount, section: 0) })
     }
 }
 
@@ -187,6 +202,14 @@ extension BrowserViewController: UISearchBarDelegate {
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+        requestNewPhotos()
+    }
+}
+
+// MARK: - Refresh control
+
+extension BrowserViewController {
+    @objc func handleRefreshControl() {
         requestNewPhotos()
     }
 }

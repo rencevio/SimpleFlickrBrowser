@@ -11,7 +11,7 @@ struct Photos {
     }
 
     struct Response {
-        let searchCriteria: String
+        let startingPosition: Int
         let photos: [Photo]
     }
 
