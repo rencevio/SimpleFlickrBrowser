@@ -22,6 +22,7 @@ private struct LayoutConstants {
 
 final class BrowserViewController: UIViewController {
     private let photosPerFetchRequest = LayoutConstants.itemsPerRow * 15
+    private let photoSize = PhotoSize.thumbSquare
 
     private let interactor: BrowserInteracting
     private let dataSource: BrowserDataSourcing
@@ -39,10 +40,10 @@ final class BrowserViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
 
         layout.sectionInset = UIEdgeInsets(
-            top: LayoutConstants.padding,
-            left: LayoutConstants.padding,
-            bottom: LayoutConstants.padding,
-            right: LayoutConstants.padding
+                top: LayoutConstants.padding,
+                left: LayoutConstants.padding,
+                bottom: LayoutConstants.padding,
+                right: LayoutConstants.padding
         )
 
         layout.minimumInteritemSpacing = LayoutConstants.interitemSpacing
@@ -121,21 +122,23 @@ final class BrowserViewController: UIViewController {
 
     func requestMorePhotos() {
         interactor.fetch(
-            photos: BrowserModels.Photos.Request(
-                startFromPosition: dataSource.photoCount,
-                fetchAtMost: photosPerFetchRequest,
-                searchCriteria: searchController.searchBar.text ?? ""
-            )
+                photos: BrowserModels.Photos.Request(
+                        startFromPosition: dataSource.photoCount,
+                        fetchAtMost: photosPerFetchRequest,
+                        searchCriteria: searchController.searchBar.text ?? "",
+                        size: photoSize
+                )
         )
     }
 
     func requestNewPhotos() {
         interactor.fetch(
-            photos: BrowserModels.Photos.Request(
-                startFromPosition: 0,
-                fetchAtMost: photosPerFetchRequest,
-                searchCriteria: searchController.searchBar.text ?? ""
-            )
+                photos: BrowserModels.Photos.Request(
+                        startFromPosition: 0,
+                        fetchAtMost: photosPerFetchRequest,
+                        searchCriteria: searchController.searchBar.text ?? "",
+                        size: photoSize
+                )
         )
     }
 }
@@ -157,7 +160,7 @@ extension BrowserViewController: BrowserDisplaying {
 
         dataSource.add(photos: photos.photos)
 
-        collectionView.insertItems(at: (0 ..< photos.photos.count).map { IndexPath(item: $0 + currentPhotoCount, section: 0) })
+        collectionView.insertItems(at: (0..<photos.photos.count).map { IndexPath(item: $0 + currentPhotoCount, section: 0) })
     }
 }
 

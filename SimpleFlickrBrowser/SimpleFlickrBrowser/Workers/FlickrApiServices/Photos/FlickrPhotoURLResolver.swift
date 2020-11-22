@@ -6,12 +6,25 @@
 import struct Foundation.URL
 
 final class FlickrPhotoURLResolver {
-    static func resolveUrl(for photo: FlickrPhoto) -> URL {
-        guard let url = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_q.jpg")
-        else {
+    static func resolveUrl(for photo: FlickrPhoto, withSize size: PhotoSize) -> URL {
+        let sizeSuffix = getSizeSuffix(for: size)
+
+        guard let url = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_\(sizeSuffix).jpg")
+                else {
             fatalError("Failed to resolve flickr photo url (input photo: \(photo))")
         }
 
         return url
+    }
+
+    private static func getSizeSuffix(for size: PhotoSize) -> String {
+        switch (size) {
+        case .thumbSquare:
+            return "q"
+        case .medium:
+            return "c"
+        case .large:
+            return "b"
+        }
     }
 }

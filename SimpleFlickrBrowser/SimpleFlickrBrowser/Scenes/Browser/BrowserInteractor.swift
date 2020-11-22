@@ -28,9 +28,10 @@ final class BrowserInteractor: BrowserInteracting {
         currentRequest = request
 
         photoCollectionFetcher.fetchPhotos(
-            startingFrom: request.startFromPosition,
-            fetchAtMost: request.fetchAtMost,
-            matching: request.searchCriteria
+                startingFrom: request.startFromPosition,
+                fetchAtMost: request.fetchAtMost,
+                matching: request.searchCriteria,
+                withSize: request.size
         ) { result in
             switch result {
             case let .success(photos):
