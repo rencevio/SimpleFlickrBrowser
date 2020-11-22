@@ -31,7 +31,8 @@ final class BrowserInteractor: BrowserInteracting {
                 startingFrom: request.startFromPosition,
                 fetchAtMost: request.fetchAtMost,
                 matching: request.searchCriteria,
-                withSize: request.size
+                withSize: request.size,
+                includeMetadata: []
         ) { result in
             switch result {
             case let .success(photos):

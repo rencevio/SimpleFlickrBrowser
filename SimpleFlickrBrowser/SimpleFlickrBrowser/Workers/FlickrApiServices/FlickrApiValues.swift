@@ -20,5 +20,19 @@ enum FlickrApiValues {
         case format
         case text
         case noJsonCallback = "nojsoncallback"
+        case extras
+    }
+
+    enum PhotoSizeSuffix: String {
+        case thumbSquare = "q"
+        case medium = "c"
+        case large = "b"
+    }
+    
+    enum PhotoMetadata: String {
+        case views
+        case tags
+        case ownerName = "owner_name"
+        case dateTaken = "date_taken"
     }
 }

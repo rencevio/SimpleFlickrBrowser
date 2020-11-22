@@ -9,7 +9,7 @@ final class FlickrPhotoURLResolver {
     static func resolveUrl(for photo: FlickrPhoto, withSize size: PhotoSize) -> URL {
         let sizeSuffix = getSizeSuffix(for: size)
 
-        guard let url = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_\(sizeSuffix).jpg")
+        guard let url = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_\(sizeSuffix.rawValue).jpg")
                 else {
             fatalError("Failed to resolve flickr photo url (input photo: \(photo))")
         }
@@ -17,14 +17,14 @@ final class FlickrPhotoURLResolver {
         return url
     }
 
-    private static func getSizeSuffix(for size: PhotoSize) -> String {
+    private static func getSizeSuffix(for size: PhotoSize) -> FlickrApiValues.PhotoSizeSuffix {
         switch (size) {
         case .thumbSquare:
-            return "q"
+            return .thumbSquare
         case .medium:
-            return "c"
+            return .medium
         case .large:
-            return "b"
+            return .large
         }
     }
 }

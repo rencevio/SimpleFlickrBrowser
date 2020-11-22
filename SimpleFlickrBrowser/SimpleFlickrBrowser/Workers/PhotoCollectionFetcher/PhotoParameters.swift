@@ -8,3 +8,10 @@ enum PhotoSize {
     case medium
     case large
 }
+
+enum PhotoMetadata {
+    case views
+    case tags
+    case ownerName
+    case dateTaken
+}

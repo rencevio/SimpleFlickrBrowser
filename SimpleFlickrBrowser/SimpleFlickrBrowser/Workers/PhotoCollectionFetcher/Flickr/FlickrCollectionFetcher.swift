@@ -13,14 +13,16 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
                      withSize size: PhotoSize,
+                     includeMetadata metadata: [PhotoMetadata],
                      completion: @escaping Completion) {
-        fetchPhotos(startingFrom: position, fetchAtMost: maxFetchCount, matching: nil, withSize: size, completion: completion)
+        fetchPhotos(startingFrom: position, fetchAtMost: maxFetchCount, matching: nil, withSize: size, includeMetadata: metadata, completion: completion)
     }
 
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
                      matching searchCriteria: String?,
                      withSize size: PhotoSize,
+                     includeMetadata metadata: [PhotoMetadata],
                      completion: @escaping Completion) {
         let page = position / maxFetchCount + 1
 
@@ -29,12 +31,14 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
                     matching: searchCriteria,
                     page: page,
                     photosPerPage: maxFetchCount,
+                    includeMetadata: metadata,
                     completion: transformFetchResult(withSize: size, completion)
             )
         } else {
             flickrPhotosService.getRecent(
                     page: page,
                     photosPerPage: maxFetchCount,
+                    includeMetadata: metadata,
                     completion: transformFetchResult(withSize: size, completion)
             )
         }

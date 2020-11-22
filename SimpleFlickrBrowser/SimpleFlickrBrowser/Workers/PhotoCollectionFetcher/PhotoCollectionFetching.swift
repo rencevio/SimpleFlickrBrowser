@@ -10,5 +10,7 @@ protocol PhotoCollectionFetching {
                      fetchAtMost maxFetchCount: Int,
                      matching searchCriteria: String?,
                      withSize size: PhotoSize,
-                     completion: @escaping Completion)
+                     includeMetadata metadata: [PhotoMetadata],
+                     completion: @escaping Completion
+    )
 }
