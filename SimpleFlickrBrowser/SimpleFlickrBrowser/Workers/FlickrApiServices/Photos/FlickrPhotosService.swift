@@ -8,9 +8,9 @@ import Foundation
 protocol FlickrPhotosFetching {
     typealias Completion = (Result<[FlickrPhoto], Error>) -> Void
 
-    func getRecent(page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoMetadata], completion: @escaping Completion)
+    func getRecent(page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion)
 
-    func search(matching text: String, page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoMetadata], completion: @escaping Completion)
+    func search(matching text: String, page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion)
 }
 
 final class FlickrPhotosService: FlickrPhotosFetching {
@@ -22,7 +22,7 @@ final class FlickrPhotosService: FlickrPhotosFetching {
         self.httpClient = httpClient
     }
 
-    func getRecent(page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoMetadata], completion: @escaping Completion) {
+    func getRecent(page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion) {
         let url = FlickrApiURLResolver.build(
             method: .photosGetRecent,
             apiKey: apiKey,
@@ -35,7 +35,7 @@ final class FlickrPhotosService: FlickrPhotosFetching {
         fetchFrom(url: url, completion: completion)
     }
 
-    func search(matching text: String, page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoMetadata], completion: @escaping Completion) {
+    func search(matching text: String, page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion) {
         let url = FlickrApiURLResolver.build(
             method: .photosSearch,
             apiKey: apiKey,
@@ -43,7 +43,6 @@ final class FlickrPhotosService: FlickrPhotosFetching {
                 .text: text,
                 .page: String(page),
                 .perPage: String(photosPerPage),
-                // todo: write test for this
                 .extras: getQueryParameters(for: metadata).map { $0.rawValue }.joined(separator: ",")
             ]
         )
@@ -82,7 +81,7 @@ final class FlickrPhotosService: FlickrPhotosFetching {
         }
     }
     
-    private func getQueryParameters(for metadata: [PhotoMetadata]) -> [FlickrApiValues.PhotoMetadata] {
+    private func getQueryParameters(for metadata: [PhotoParameters.Metadata]) -> [FlickrApiValues.PhotoMetadata] {
         metadata.map {
             switch ($0) {
             case .views:

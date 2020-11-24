@@ -9,7 +9,7 @@ struct BrowserModels {
             let startFromPosition: Int
             let fetchAtMost: Int
             let searchCriteria: String
-            let size: PhotoSize
+            let size: PhotoParameters.Size
         }
 
         struct Response {

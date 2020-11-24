@@ -59,7 +59,7 @@ class FlickrPhotoServiceTests: XCTestCase {
 
         var fetchedPhotos: [FlickrPhoto]!
 
-        sut.getRecent(page: 1, photosPerPage: 1) { result in
+        sut.getRecent(page: 1, photosPerPage: 1, includeMetadata: []) { result in
             switch result {
             case let .success(photos):
                 fetchedPhotos = photos
@@ -84,7 +84,7 @@ class FlickrPhotoServiceTests: XCTestCase {
 
         var fetchError: Error?
 
-        sut.getRecent(page: 1, photosPerPage: 1) { result in
+        sut.getRecent(page: 1, photosPerPage: 1, includeMetadata: []) { result in
             switch result {
             case let .success(photos):
                 XCTFail("Unexpected success while fetching photos: \(photos)")

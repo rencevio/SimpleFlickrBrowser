@@ -22,7 +22,7 @@ private struct LayoutConstants {
 
 final class BrowserViewController: UIViewController {
     private let photosPerFetchRequest = LayoutConstants.itemsPerRow * 15
-    private let photoSize = PhotoSize.thumbSquare
+    private let photoSize = PhotoParameters.Size.thumbSquare
 
     private let interactor: BrowserInteracting
     private let dataSource: BrowserDataSourcing

@@ -34,6 +34,7 @@
 		62DE971066062BAA9D8C9AE4 /* FlickrPhotoURLResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE986497C5FB223DA10256 /* FlickrPhotoURLResolver.swift */; };
 		62DE97140AE23BE5CD384EF0 /* MockHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9E19BC1900DC8648FD5E /* MockHttpClient.swift */; };
 		62DE971FF8AB9DC74BA9B87C /* FlickrApiValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE987D3B885CA1A25FB693 /* FlickrApiValues.swift */; };
+		62DE97615F6230CBFF9F92A4 /* FeedFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE96216E4D360CAB68AF75 /* FeedFactory.swift */; };
 		62DE97B6EC739349BC9A6D2F /* FlickrPhotoServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE97953D19EE0C13151316 /* FlickrPhotoServiceTests.swift */; };
 		62DE97CDCFCD2718C1BBC1E8 /* PhotoCollectionFetcherFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9A0F5F5E76B6AFE7159B /* PhotoCollectionFetcherFactory.swift */; };
 		62DE983EF92FD18305C80488 /* BrowserCellInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE997B53C61FE26593A99A /* BrowserCellInteractor.swift */; };
@@ -51,6 +52,7 @@
 		62DE9CBE1FB6013A700EB635 /* BrowserCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9591CAA01E3F3C91A977 /* BrowserCellPresenter.swift */; };
 		62DE9CD65849E14B67A5AF42 /* PhotoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9031E5EEBEA8EBA4D644 /* PhotoParameters.swift */; };
 		62DE9CE6366FD6ECE740C55C /* FlickrCollectionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9C90249CCE2FAF835CF5 /* FlickrCollectionFetcher.swift */; };
+		62DE9D29B400373915DB581A /* FeedViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE925A929D79068D7BE7CB /* FeedViewDataSource.swift */; };
 		62DE9E63C0B530594A5B150B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE9C8D791DA5418ED32FCF /* Style.swift */; };
 		62DE9EBE33EDC3D97D929FF2 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE970A3FD09743A03DAF33 /* Photo.swift */; };
 		62DE9EC2FE48A5A204531EEA /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DE93C78893DAA0E46DBD6A /* HttpClient.swift */; };
@@ -86,6 +88,7 @@
 		62DE91C1A5EBF975C64A37B3 /* MockPhotoDataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPhotoDataCache.swift; sourceTree = "<group>"; };
 		62DE9225FFEBB4968F60A987 /* MockFlickrPhotoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFlickrPhotoService.swift; sourceTree = "<group>"; };
 		62DE924CEDF37B8D5BC86D48 /* XCTestCase+QueueAwait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+QueueAwait.swift"; sourceTree = "<group>"; };
+		62DE925A929D79068D7BE7CB /* FeedViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewDataSource.swift; sourceTree = "<group>"; };
 		62DE92C6C8EA6BC8A24E8EBC /* BrowserCellFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellFactory.swift; sourceTree = "<group>"; };
 		62DE92EE74C81312D3DB90B0 /* MockPhotoDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPhotoDataProvider.swift; sourceTree = "<group>"; };
 		62DE93A95BC1DB3D74EC66D8 /* BrowserCellInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellInteractorTests.swift; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		62DE94A9AA78F83D54078368 /* RootDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootDependencies.swift; sourceTree = "<group>"; };
 		62DE954BE0BFF3D2EE91DE12 /* FlickrPhotosService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhotosService.swift; sourceTree = "<group>"; };
 		62DE9591CAA01E3F3C91A977 /* BrowserCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellPresenter.swift; sourceTree = "<group>"; };
+		62DE96216E4D360CAB68AF75 /* FeedFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedFactory.swift; sourceTree = "<group>"; };
 		62DE9648DCA09C364860E8BB /* BrowserCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellView.swift; sourceTree = "<group>"; };
 		62DE9673FC376E2BC90087D6 /* FeedPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		62DE969E8F3F30D004171974 /* BrowserCellModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserCellModels.swift; sourceTree = "<group>"; };
@@ -190,6 +194,9 @@
 				62DE9673FC376E2BC90087D6 /* FeedPresenter.swift */,
 				62DE9DB2850E842E22C4CC84 /* FeedInteractor.swift */,
 				62DE9D31EAF1CFCCDE85B8DE /* FeedModels.swift */,
+				62DE96216E4D360CAB68AF75 /* FeedFactory.swift */,
+				62DE925A929D79068D7BE7CB /* FeedViewDataSource.swift */,
+				62DE98914295E0F2A4403FBE /* Cell */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -277,6 +284,13 @@
 				62DE96B5EBB14213DC9E7804 /* MockPhotoDataRetriever.swift */,
 			);
 			path = PhotoDataRetriever;
+			sourceTree = "<group>";
+		};
+		62DE98914295E0F2A4403FBE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		62DE98C735D3CC9E8C88071A /* FlickrApiServices */ = {
@@ -628,6 +642,8 @@
 				62DE91F2D0080AF13460E47C /* FeedInteractor.swift in Sources */,
 				62DE96046383936ED2BDE433 /* FeedModels.swift in Sources */,
 				62DE9CD65849E14B67A5AF42 /* PhotoParameters.swift in Sources */,
+				62DE97615F6230CBFF9F92A4 /* FeedFactory.swift in Sources */,
+				62DE9D29B400373915DB581A /* FeedViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

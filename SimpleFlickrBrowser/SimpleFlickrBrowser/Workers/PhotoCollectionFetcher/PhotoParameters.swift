@@ -3,15 +3,17 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
-enum PhotoSize {
-    case thumbSquare
-    case medium
-    case large
-}
+enum PhotoParameters {
+    enum Size {
+        case thumbSquare
+        case medium
+        case large
+    }
 
-enum PhotoMetadata {
-    case views
-    case tags
-    case ownerName
-    case dateTaken
+    enum Metadata {
+        case views
+        case tags
+        case ownerName
+        case dateTaken
+    }
 }

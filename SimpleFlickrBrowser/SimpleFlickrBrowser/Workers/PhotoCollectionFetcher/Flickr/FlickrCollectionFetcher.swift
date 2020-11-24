@@ -12,8 +12,8 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
 
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
-                     withSize size: PhotoSize,
-                     includeMetadata metadata: [PhotoMetadata],
+                     withSize size: PhotoParameters.Size,
+                     includeMetadata metadata: [PhotoParameters.Metadata],
                      completion: @escaping Completion) {
         fetchPhotos(startingFrom: position, fetchAtMost: maxFetchCount, matching: nil, withSize: size, includeMetadata: metadata, completion: completion)
     }
@@ -21,8 +21,8 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
                      matching searchCriteria: String?,
-                     withSize size: PhotoSize,
-                     includeMetadata metadata: [PhotoMetadata],
+                     withSize size: PhotoParameters.Size,
+                     includeMetadata metadata: [PhotoParameters.Metadata],
                      completion: @escaping Completion) {
         let page = position / maxFetchCount + 1
 
@@ -44,11 +44,12 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
         }
     }
 
-    private func transformFetchResult(withSize size: PhotoSize, _ completion: @escaping Completion) -> FlickrPhotosService.Completion {
+    private func transformFetchResult(withSize size: PhotoParameters.Size, _ completion: @escaping Completion) -> FlickrPhotosService.Completion {
         { result in
             switch result {
             case let .success(photos):
-                completion(.success(photos.map { Photo(id: $0.id, imageURL: FlickrPhotoURLResolver.resolveUrl(for: $0, withSize: size)) }))
+                // todo: metadata
+                completion(.success(photos.map { Photo(id: $0.id, imageURL: FlickrPhotoURLResolver.resolveUrl(for: $0, withSize: size), metadata: nil) }))
             case let .failure(error):
                 completion(.failure(error))
             }
