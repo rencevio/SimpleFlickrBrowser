@@ -30,9 +30,9 @@ final class FeedInteractor: FeedInteracting {
         photoCollectionFetcher.fetchPhotos(
                 startingFrom: request.startFromPosition,
                 fetchAtMost: request.fetchAtMost,
-                matching: request.searchCriteria,
+                matching: "",
                 withSize: request.size,
-                includeMetadata: []
+                includeMetadata: request.metadata
         ) { result in
             switch result {
             case let .success(photos):

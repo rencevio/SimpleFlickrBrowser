@@ -8,7 +8,6 @@ struct FeedModels {
         struct Request: Equatable {
             let startFromPosition: Int
             let fetchAtMost: Int
-            let searchCriteria: String
             let size: PhotoParameters.Size
             let metadata: [PhotoParameters.Metadata]
         }

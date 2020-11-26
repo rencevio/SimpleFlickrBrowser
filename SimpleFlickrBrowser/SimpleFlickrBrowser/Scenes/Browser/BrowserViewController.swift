@@ -18,11 +18,12 @@ private struct LayoutConstants {
     static let lineSpacing: CGFloat = 10
 
     static let heightRatio: CGFloat = 1.0
+    
+    static let photoSize = PhotoParameters.Size.thumbSquare
 }
 
 final class BrowserViewController: UIViewController {
     private let photosPerFetchRequest = LayoutConstants.itemsPerRow * 15
-    private let photoSize = PhotoParameters.Size.thumbSquare
 
     private let interactor: BrowserInteracting
     private let dataSource: BrowserDataSourcing
@@ -126,7 +127,7 @@ final class BrowserViewController: UIViewController {
                         startFromPosition: dataSource.photoCount,
                         fetchAtMost: photosPerFetchRequest,
                         searchCriteria: searchController.searchBar.text ?? "",
-                        size: photoSize
+                        size: LayoutConstants.photoSize
                 )
         )
     }
@@ -137,7 +138,7 @@ final class BrowserViewController: UIViewController {
                         startFromPosition: 0,
                         fetchAtMost: photosPerFetchRequest,
                         searchCriteria: searchController.searchBar.text ?? "",
-                        size: photoSize
+                        size: LayoutConstants.photoSize
                 )
         )
     }

@@ -19,7 +19,7 @@ private struct LayoutConstants {
     static let sideMarginRatio: CGFloat = 0.02
     static let tagsSideMarginRatio: CGFloat = 0.04
     static let topBottomMarginRatio: CGFloat = 0.2
-    
+
     static let dateTakenFormat = "MMM dd, yyyy"
 }
 
@@ -33,7 +33,7 @@ final class FeedViewCell: UITableViewCell {
 
     private var interactor: FeedCellInteracting?
 
-    private var heightConstraint: NSLayoutConstraint?
+    private var imageHeightConstraint: NSLayoutConstraint?
 
     // MARK: - Subviews
     lazy var cellImageView: UIImageView = {
@@ -94,16 +94,16 @@ final class FeedViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    lazy var widthConstraint: NSLayoutConstraint = {
+    lazy var viewWidthConstraint: NSLayoutConstraint = {
         let constraint = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
         constraint.isActive = true
         return constraint
     }()
 
-    override func systemLayoutSizeFitting(_ targetSize: CGSize, 
-                                          withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, 
+    override func systemLayoutSizeFitting(_ targetSize: CGSize,
+                                          withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
                                           verticalFittingPriority: UILayoutPriority) -> CGSize {
-        widthConstraint.constant = bounds.size.width
+        viewWidthConstraint.constant = bounds.size.width
         return contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 1))
     }
 
@@ -159,7 +159,19 @@ final class FeedViewCell: UITableViewCell {
         case let .image(image):
             cellImageView.isHidden = false
             cellImageView.image = image
+            layoutImage()
         }
+    }
+    
+    private func layoutImage() {
+        guard let image = cellImageView.image else {
+            return
+        }
+        
+        imageHeightConstraint?.isActive = false
+        imageHeightConstraint = cellImageView.heightAnchor.constraint(equalTo: cellImageView.widthAnchor, multiplier: image.size.height / image.size.width)
+        imageHeightConstraint?.priority = .defaultHigh
+        imageHeightConstraint?.isActive = true
     }
 }
 
@@ -167,9 +179,13 @@ final class FeedViewCell: UITableViewCell {
 // MARK: - FeedCellDisplaying
 
 extension FeedViewCell: FeedCellDisplaying {
-    func display(image: FeedCellModels.PhotoImage.ViewModel) {}
+    func display(image: FeedCellModels.PhotoImage.ViewModel) {
+        set(imageState: .image(image.image))
+    }
 
-    func displayLoading() {}
+    func displayLoading() {
+        set(imageState: .loading)
+    }
 }
 
 // MARK: - ConfigurableFeedCell
@@ -179,12 +195,27 @@ extension FeedViewCell: ConfigurableFeedCell {
         self.interactor = interactor
 
         interactor.fetch(image: FeedCellModels.PhotoImage.Request(photoID: photo.id, url: photo.imageURL))
+
+        let metadata = photo.metadata
+
+        ownerNameView.text = metadata.ownerName ?? ""
+
+        if let dateTaken = metadata.dateTaken {
+            dateTakenView.set(date: dateTaken)
+        } else {
+            dateTakenView.text = ""
+        }
+
+        if let views = metadata.views {
+            viewsView.set(views: views)
+        } else {
+            viewsView.text = ""
+        }
         
-        if let metadata = photo.metadata {
-            ownerNameView.text = metadata.ownerName
-            dateTakenView.set(date: metadata.dateTaken)
-            viewsView.set(views: metadata.views)
-            tagsView.set(tags: metadata.tags)
+        if let tags = metadata.tags {
+            tagsView.set(tags: tags)
+        } else {
+            tagsView.text = ""
         }
     }
 }

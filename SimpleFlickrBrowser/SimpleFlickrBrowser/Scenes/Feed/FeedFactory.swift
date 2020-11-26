@@ -19,11 +19,9 @@ final class FeedFactory {
     }
 
     private func createDataSource(photoDataProvider: PhotoDataProviding) -> FeedDataSourcing {
-//        let cellFactory = BrowserCellFactory(photoDataProvider: photoDataProvider)
-//        let cellConfigurator = cellFactory.createConfigurator()
+        let cellFactory = FeedCellFactory(photoDataProvider: photoDataProvider)
+        let cellConfigurator = cellFactory.createConfigurator()
 
-        return FeedViewDataSource(
-//                cellConfigurator: cellConfigurator
-        )
+        return FeedViewDataSource(cellConfigurator: cellConfigurator)
     }
 }

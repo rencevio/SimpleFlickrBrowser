@@ -8,15 +8,15 @@ import struct Foundation.Date
 
 struct Photo {
     struct Metadata {
-        let views: Int
-        let tags: [String]
-        let ownerName: String
-        let dateTaken: Date
+        let views: Int?
+        let tags: [String]?
+        let ownerName: String?
+        let dateTaken: Date?
     }
     
     typealias ID = String
 
     let id: ID
     let imageURL: URL
-    let metadata: Metadata?
+    let metadata: Metadata
 }

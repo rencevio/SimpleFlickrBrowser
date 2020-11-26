@@ -3,6 +3,8 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
+import Foundation.NSDateFormatter
+
 final class FlickrCollectionFetcher: PhotoCollectionFetching {
     private let flickrPhotosService: FlickrPhotosFetching
 
@@ -48,11 +50,30 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
         { result in
             switch result {
             case let .success(photos):
-                // todo: metadata
-                completion(.success(photos.map { Photo(id: $0.id, imageURL: FlickrPhotoURLResolver.resolveUrl(for: $0, withSize: size), metadata: nil) }))
+                completion(.success(photos.map { photo in
+                    Photo(id: photo.id,
+                            imageURL: FlickrPhotoURLResolver.resolveUrl(
+                                    for: photo,
+                                    withSize: size
+                            ),
+                            metadata: extractMetadata(from: photo)
+                    )
+                }))
             case let .failure(error):
                 completion(.failure(error))
             }
         }
     }
+}
+
+private func extractMetadata(from photo: FlickrPhoto) -> Photo.Metadata {
+    let dateTakenFormatter = DateFormatter()
+    dateTakenFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+    
+    return Photo.Metadata(
+            views: photo.views?.toInt(), 
+            tags: photo.tags?.components(separatedBy: " "), 
+            ownerName: photo.ownername, 
+            dateTaken: photo.datetaken?.toDate(formatter: dateTakenFormatter)
+    )
 }

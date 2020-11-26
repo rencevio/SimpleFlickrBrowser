@@ -29,6 +29,7 @@ final class FlickrPhotosService: FlickrPhotosFetching {
             queryParameters: [
                 .page: String(page),
                 .perPage: String(photosPerPage),
+                .extras: getQueryParameters(for: metadata).map { $0.rawValue }.joined(separator: ",")
             ]
         )
 

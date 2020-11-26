@@ -10,7 +10,7 @@ enum PhotoParameters {
         case large
     }
 
-    enum Metadata {
+    enum Metadata: CaseIterable {
         case views
         case tags
         case ownerName

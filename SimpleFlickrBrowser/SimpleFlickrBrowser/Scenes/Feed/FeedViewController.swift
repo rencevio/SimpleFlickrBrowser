@@ -10,14 +10,34 @@ protocol FeedDisplaying: AnyObject {
     func displayMore(photos: FeedModels.Photos.ViewModel)
 }
 
+private struct LayoutConstants {
+    static let photoSize = PhotoParameters.Size.medium
+    static let itemSpacing: CGFloat = 30
+}
+
 final class FeedViewController: UIViewController {
-    private let photoSize = PhotoParameters.Size.medium
+    private let photosPerFetchRequest = 4
+    private let metadataToFetch: [PhotoParameters.Metadata] = [
+        .views,
+        .dateTaken,
+        .tags,
+        .ownerName
+    ]
 
     private let interactor: FeedInteracting
     private let dataSource: FeedDataSourcing
     
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero)
+        
+        view.alwaysBounceVertical = true
+        view.backgroundColor = Style.ScreenBackground.color
+        
+        view.tableFooterView = UIView()
+        view.separatorStyle = .none
+        view.sectionHeaderHeight = LayoutConstants.itemSpacing
+        
+        view.allowsSelection = false
         
         return view
     }()
@@ -51,7 +71,17 @@ final class FeedViewController: UIViewController {
     // MARK: - View Setup
 
     private func setupTableView() {
-        
+        view.addSubview(tableView)
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+
+        tableView.delegate = self
+
+        dataSource.register(for: tableView)
     }
     
     private func setupRefreshControl() {
@@ -63,7 +93,45 @@ final class FeedViewController: UIViewController {
     // MARK: - Data Requesting
     
     private func requestNewPhotos() {
-        
+        interactor.fetch(
+                photos: FeedModels.Photos.Request(
+                        startFromPosition: dataSource.photoCount,
+                        fetchAtMost: photosPerFetchRequest,
+                        size: LayoutConstants.photoSize,
+                        metadata: metadataToFetch
+                )
+        )   
+    }
+
+    func requestMorePhotos() {
+        interactor.fetch(
+                photos: FeedModels.Photos.Request(
+                        startFromPosition: dataSource.photoCount,
+                        fetchAtMost: photosPerFetchRequest,
+                        size: LayoutConstants.photoSize,
+                        metadata: metadataToFetch
+                )
+        )
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension FeedViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? { 
+        UIView()
+    }
+
+    public func tableView(_ tableView: UITableView, 
+                          willDisplay cell: UITableViewCell, 
+                          forRowAt indexPath: IndexPath) {
+        let itemToDisplay = indexPath.section
+
+        let loadedPhotosCount = dataSource.photoCount
+
+        if itemToDisplay == loadedPhotosCount {
+            requestMorePhotos()
+        }
     }
 }
 
@@ -71,10 +139,21 @@ final class FeedViewController: UIViewController {
 
 extension FeedViewController: FeedDisplaying {
     func displayNew(photos: FeedModels.Photos.ViewModel) {
+        dataSource.set(photos: photos.photos)
+
         refreshControl.endRefreshing()
+
+        tableView.reloadData()
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
     }
 
-    func displayMore(photos: FeedModels.Photos.ViewModel) {}
+    func displayMore(photos: FeedModels.Photos.ViewModel) {
+        let currentPhotoCount = dataSource.photoCount
+
+        dataSource.add(photos: photos.photos)
+
+        tableView.insertSections(IndexSet(integersIn: currentPhotoCount..<currentPhotoCount + photos.photos.count), with: .none)
+    }
 }
 
 // MARK: - Refresh control

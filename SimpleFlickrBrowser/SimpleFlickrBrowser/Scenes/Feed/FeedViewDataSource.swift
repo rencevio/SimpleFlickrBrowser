@@ -6,22 +6,20 @@
 import UIKit
 
 protocol FeedDataSourcing: UITableViewDataSource {
-//    var photoCount: Int { get }
+    var photoCount: Int { get }
 
-//    func register(for collectionView: UICollectionView)
-//    func add(photos: [Photo])
-//    func set(photos: [Photo])
+    func register(for tableView: UITableView)
+    func add(photos: [Photo])
+    func set(photos: [Photo])
 }
 
 final class FeedViewDataSource: NSObject {
-//    private let cellConfigurator: BrowserCellConfiguring
+    private let cellConfigurator: FeedCellConfiguring
 
     private var photos = [Photo]()
 
-    override init(
-//            cellConfigurator: BrowserCellConfiguring
-    ) {
-//        self.cellConfigurator = cellConfigurator
+    init(cellConfigurator: FeedCellConfiguring) {
+        self.cellConfigurator = cellConfigurator
 
         super.init()
     }
@@ -30,14 +28,56 @@ final class FeedViewDataSource: NSObject {
 // MARK: - UITableViewDataSource
 
 extension FeedViewDataSource: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { fatalError("tableView(_:numberOfRowsInSection:) has not been implemented") }
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 
+        1
+    }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { fatalError("tableView(_:cellForRowAt:) has not been implemented") }
+    public func numberOfSections(in tableView: UITableView) -> Int { 
+        photos.count
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { 
+        let cell = dequeueFeedCell(from: tableView, at: indexPath)
+
+        let photo = photos[indexPath.item]
+
+        cellConfigurator.configure(cell: cell, with: photo)
+        
+        return cell
+    }
 }
 
 // MARK: - FeedDataSourcing
 
 extension FeedViewDataSource: FeedDataSourcing {
+    var photoCount: Int {
+        photos.count
+    }
 
+    func register(for tableView: UITableView) {
+        tableView.dataSource = self
+        tableView.register(FeedViewCell.self, forCellReuseIdentifier: FeedViewCell.identifier)
+    }
+
+    func add(photos: [Photo]) {
+        self.photos.append(contentsOf: photos)
+    }
+
+    func set(photos: [Photo]) {
+        self.photos = photos
+    }
 }
 
+// MARK: - FeedViewCell dequeuing
+
+extension FeedViewDataSource {
+    func dequeueFeedCell(from tableView: UITableView, at indexPath: IndexPath) -> FeedViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FeedViewCell.identifier, for: indexPath)
+
+        guard let feedCell = cell as? FeedViewCell else {
+            fatalError("Unexpected cell type while dequeuing in \(FeedViewDataSource.self): got \(cell)")
+        }
+
+        return feedCell
+    }
+}
