@@ -5,11 +5,6 @@
 
 import UIKit
 
-protocol FeedCellDisplaying: AnyObject {
-    func display(image: FeedCellModels.PhotoImage.ViewModel)
-    func displayLoading()
-}
-
 private struct LayoutConstants {
     static let ownerNameFontSize: CGFloat = 12
     static let tagsFontSize: CGFloat = 11
@@ -23,6 +18,10 @@ private struct LayoutConstants {
     static let dateTakenFormat = "MMM dd, yyyy"
 }
 
+protocol FeedViewCellPhotoDisplaying {
+    func display(photo: Photo)
+}
+
 final class FeedViewCell: UITableViewCell {
     private enum ImageViewState {
         case loading
@@ -30,8 +29,6 @@ final class FeedViewCell: UITableViewCell {
     }
 
     static let identifier = "\(FeedViewCell.self)"
-
-    private var interactor: FeedCellInteracting?
 
     private var imageHeightConstraint: NSLayoutConstraint?
 
@@ -81,13 +78,13 @@ final class FeedViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        contentView.backgroundColor = Style.ScreenBackground.color
+
         setupImageView()
         setupOwnerNameView()
         setupViewsView()
         setupTagsView()
         setupDateTakenView()
-
-        set(imageState: .loading)
     }
 
     required init?(coder: NSCoder) {
@@ -151,23 +148,11 @@ final class FeedViewCell: UITableViewCell {
         dateTakenView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: frame.width * LayoutConstants.sideMarginRatio).isActive = true
     }
 
-    private func set(imageState: ImageViewState) {
-        switch imageState {
-        case .loading:
-            cellImageView.isHidden = true
-
-        case let .image(image):
-            cellImageView.isHidden = false
-            cellImageView.image = image
-            layoutImage()
-        }
-    }
-    
     private func layoutImage() {
         guard let image = cellImageView.image else {
             return
         }
-        
+
         imageHeightConstraint?.isActive = false
         imageHeightConstraint = cellImageView.heightAnchor.constraint(equalTo: cellImageView.widthAnchor, multiplier: image.size.height / image.size.width)
         imageHeightConstraint?.priority = .defaultHigh
@@ -175,47 +160,20 @@ final class FeedViewCell: UITableViewCell {
     }
 }
 
-
-// MARK: - FeedCellDisplaying
-
-extension FeedViewCell: FeedCellDisplaying {
-    func display(image: FeedCellModels.PhotoImage.ViewModel) {
-        set(imageState: .image(image.image))
-    }
-
-    func displayLoading() {
-        set(imageState: .loading)
-    }
-}
-
-// MARK: - ConfigurableFeedCell
-
-extension FeedViewCell: ConfigurableFeedCell {
-    func configure(interactor: FeedCellInteracting, photo: Photo) {
-        self.interactor = interactor
-
-        interactor.fetch(image: FeedCellModels.PhotoImage.Request(photoID: photo.id, url: photo.imageURL))
-
+// MARK: - FeedViewCellPhotoDisplaying
+extension FeedViewCell: FeedViewCellPhotoDisplaying {
+    func display(photo: Photo) {
         let metadata = photo.metadata
 
-        ownerNameView.text = metadata.ownerName ?? ""
+        ownerNameView.text = metadata.ownerName
 
-        if let dateTaken = metadata.dateTaken {
-            dateTakenView.set(date: dateTaken)
-        } else {
-            dateTakenView.text = ""
-        }
+        dateTakenView.set(date: metadata.dateTaken)
 
-        if let views = metadata.views {
-            viewsView.set(views: views)
-        } else {
-            viewsView.text = ""
-        }
+        viewsView.set(views: metadata.views)
+
+        tagsView.set(tags: metadata.tags)
         
-        if let tags = metadata.tags {
-            tagsView.set(tags: tags)
-        } else {
-            tagsView.text = ""
-        }
+        cellImageView.image = UIImage(data: photo.imageData)
+        layoutImage()
     }
 }

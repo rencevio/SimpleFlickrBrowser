@@ -5,18 +5,20 @@
 
 import struct Foundation.URL
 import struct Foundation.Date
+import struct Foundation.Data
 
 struct Photo {
     struct Metadata {
-        let views: Int?
-        let tags: [String]?
-        let ownerName: String?
-        let dateTaken: Date?
+        let views: Int
+        let tags: [String]
+        let ownerName: String
+        let dateTaken: Date
     }
     
     typealias ID = String
 
     let id: ID
-    let imageURL: URL
+    let imageData: Data
+    let fullSizeImageURL: URL
     let metadata: Metadata
 }

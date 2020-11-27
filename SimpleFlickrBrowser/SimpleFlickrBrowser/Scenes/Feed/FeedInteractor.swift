@@ -30,9 +30,7 @@ final class FeedInteractor: FeedInteracting {
         photoCollectionFetcher.fetchPhotos(
                 startingFrom: request.startFromPosition,
                 fetchAtMost: request.fetchAtMost,
-                matching: "",
-                withSize: request.size,
-                includeMetadata: request.metadata
+                withSize: request.size
         ) { result in
             switch result {
             case let .success(photos):
@@ -43,10 +41,14 @@ final class FeedInteractor: FeedInteracting {
                         self.currentRequest = nil
                     }
 
-                    let response = FeedModels.Photos.Response(startingPosition: request.startFromPosition, photos: photos)
+                    let response = FeedModels.Photos.Response(
+                            startingPosition: request.startFromPosition,
+                            photos: photos
+                    )
 
                     self.presenter.present(photos: response)
                 }
+                
             case let .failure(error):
                 print("Error while retrieving photos (request: \(request)): \(error)")
             }

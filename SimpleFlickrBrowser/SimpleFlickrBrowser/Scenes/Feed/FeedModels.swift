@@ -3,6 +3,8 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
+import UIKit.UIImage
+
 struct FeedModels {
     struct Photos {
         struct Request: Equatable {

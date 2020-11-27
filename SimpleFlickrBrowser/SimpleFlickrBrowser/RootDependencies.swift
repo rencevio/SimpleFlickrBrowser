@@ -12,23 +12,13 @@ final class RootDependencies {
         photoDataProvider = photoDataProviderFactory.createPhotoProvider()
 
         let photoCollectionFetcherFactory = FlickrCollectionFetcherFactory()
-        photoCollectionFetcher = photoCollectionFetcherFactory.createCollectionFetcher()
-    }
-
-    func createBrowserViewController() -> BrowserViewController {
-        let browserFactory = BrowserFactory()
-
-        return browserFactory.createViewController(
-            photoDataProvider: photoDataProvider,
-            photoCollectionFetcher: photoCollectionFetcher
-        )
+        photoCollectionFetcher = photoCollectionFetcherFactory.createCollectionFetcher(photoDataProvider: photoDataProvider)
     }
 
     func createFeedViewController() -> FeedViewController {
         let feedFactory = FeedFactory()
         
         return feedFactory.createViewController(
-                photoDataProvider: photoDataProvider,
                 photoCollectionFetcher: photoCollectionFetcher
         )
     }

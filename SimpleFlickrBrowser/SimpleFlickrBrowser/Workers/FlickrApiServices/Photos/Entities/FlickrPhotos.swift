@@ -18,8 +18,8 @@ struct FlickrPhoto: Decodable {
     let secret: String
     let server: String
     let farm: Int
-    let datetaken: String?
-    let ownername: String?
-    let views: String?
-    let tags: String?
+    let datetaken: String
+    let ownername: String
+    let views: String
+    let tags: String
 }

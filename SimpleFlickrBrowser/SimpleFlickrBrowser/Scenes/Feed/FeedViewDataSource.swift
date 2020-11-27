@@ -14,15 +14,8 @@ protocol FeedDataSourcing: UITableViewDataSource {
 }
 
 final class FeedViewDataSource: NSObject {
-    private let cellConfigurator: FeedCellConfiguring
-
     private var photos = [Photo]()
-
-    init(cellConfigurator: FeedCellConfiguring) {
-        self.cellConfigurator = cellConfigurator
-
-        super.init()
-    }
+    private var images = [Photo.ID: UIImage]()
 }
 
 // MARK: - UITableViewDataSource
@@ -39,9 +32,9 @@ extension FeedViewDataSource: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { 
         let cell = dequeueFeedCell(from: tableView, at: indexPath)
 
-        let photo = photos[indexPath.item]
+        let photo = photos[indexPath.section]
 
-        cellConfigurator.configure(cell: cell, with: photo)
+        cell.display(photo: photo)
         
         return cell
     }

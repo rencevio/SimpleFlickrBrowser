@@ -36,6 +36,7 @@ final class FeedViewController: UIViewController {
         view.tableFooterView = UIView()
         view.separatorStyle = .none
         view.sectionHeaderHeight = LayoutConstants.itemSpacing
+        view.estimatedRowHeight = 500
         
         view.allowsSelection = false
         
@@ -95,7 +96,7 @@ final class FeedViewController: UIViewController {
     private func requestNewPhotos() {
         interactor.fetch(
                 photos: FeedModels.Photos.Request(
-                        startFromPosition: dataSource.photoCount,
+                        startFromPosition: 0,
                         fetchAtMost: photosPerFetchRequest,
                         size: LayoutConstants.photoSize,
                         metadata: metadataToFetch
