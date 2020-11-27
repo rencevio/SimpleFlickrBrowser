@@ -130,7 +130,7 @@ extension FeedViewController: UITableViewDelegate {
 
         let loadedPhotosCount = dataSource.photoCount
 
-        if itemToDisplay == loadedPhotosCount {
+        if itemToDisplay == loadedPhotosCount - 1 {
             requestMorePhotos()
         }
     }
