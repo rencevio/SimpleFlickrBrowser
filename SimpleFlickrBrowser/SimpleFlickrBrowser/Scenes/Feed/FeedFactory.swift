@@ -4,7 +4,7 @@
 // Copyright (c) 2020 rencevio. All rights reserved.
 
 protocol FeedCreating {
-    func createViewController(photoCollectionFetcher: PhotoCollectionFetching) -> FeedViewController
+    func createViewController(photoDataProvider: PhotoDataProviding, photoCollectionFetcher: PhotoCollectionFetching) -> FeedViewController
 }
 
 final class FeedFactory: FeedCreating {
@@ -14,10 +14,10 @@ final class FeedFactory: FeedCreating {
         self.feedCellFactory = feedCellFactory 
     }
 
-    func createViewController(photoCollectionFetcher: PhotoCollectionFetching) -> FeedViewController {
+    func createViewController(photoDataProvider: PhotoDataProviding, photoCollectionFetcher: PhotoCollectionFetching) -> FeedViewController {
         let presenter = FeedPresenter()
         let interactor = FeedInteractor(presenter: presenter, photoCollectionFetcher: photoCollectionFetcher)
-        let router = createRouter()
+        var router = createRouter(photoDataProvider: photoDataProvider)
         let dataSource = createDataSource(router: router)
 
         let viewController = FeedViewController(
@@ -27,6 +27,7 @@ final class FeedFactory: FeedCreating {
         )
 
         presenter.view = viewController
+        router.sourceVC = viewController
 
         return viewController
     }
@@ -37,8 +38,8 @@ final class FeedFactory: FeedCreating {
         return FeedViewDataSource(feedCellConfigurator: configurator)
     }
 
-    private func createRouter() -> FeedRouting {
-        let fullImageFactory = FullImageFactory()
+    private func createRouter(photoDataProvider: PhotoDataProviding) -> FeedRouting {
+        let fullImageFactory = FullImageFactory(photoDataProvider: photoDataProvider)
 
         return FeedRouter(fullImageFactory: fullImageFactory)
     }

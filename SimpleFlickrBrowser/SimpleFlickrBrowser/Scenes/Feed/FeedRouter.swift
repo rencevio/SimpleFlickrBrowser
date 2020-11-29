@@ -6,7 +6,7 @@
 import UIKit
 
 protocol FeedRouting: Routing {
-    func displayFullImage(withInfo info: Photo)
+    func displayFullImage(withInfoFrom photo: Photo)
 }
 
 final class FeedRouter: FeedRouting {
@@ -18,12 +18,12 @@ final class FeedRouter: FeedRouting {
         self.fullImageFactory = fullImageFactory
     }
 
-    func displayFullImage(withInfo info: Photo) {
+    func displayFullImage(withInfoFrom photo: Photo) {
         guard let sourceVC = sourceVC else {
             return
         }
         
-        let fullImageViewController = fullImageFactory.createViewController()
+        let fullImageViewController = fullImageFactory.createViewController(withInfoFrom: photo)
         
         sourceVC.present(fullImageViewController, animated: true)
     }

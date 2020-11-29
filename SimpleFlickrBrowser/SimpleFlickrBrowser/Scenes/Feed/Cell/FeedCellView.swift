@@ -26,13 +26,17 @@ final class FeedViewCell: UITableViewCell {
     static let identifier = "\(FeedViewCell.self)"
     
     var router: FeedRouting?
+    var photo: Photo?
 
     private var imageHeightConstraint: NSLayoutConstraint?
 
     // MARK: - Subviews
     lazy var cellImageView: UIImageView = {
         let view = UIImageView()
+        
         view.contentMode = .scaleAspectFit
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(imageGestureRecognizer)
 
         return view
     }()
@@ -69,6 +73,14 @@ final class FeedViewCell: UITableViewCell {
         view.font = UIFont.systemFont(ofSize: LayoutConstants.dateTakenFontSize)
 
         return view
+    }()
+
+    lazy var imageGestureRecognizer: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onImageTapped))
+
+        gesture.numberOfTapsRequired = 1
+
+        return gesture
     }()
 
     // MARK: - Init
@@ -155,19 +167,26 @@ final class FeedViewCell: UITableViewCell {
         imageHeightConstraint?.priority = .defaultHigh
         imageHeightConstraint?.isActive = true
     }
+    
+    @objc private func onImageTapped() {
+        guard let router = router, let photo = photo else {
+            return
+        }
+        
+        router.displayFullImage(withInfoFrom: photo)
+    }
 }
 
 // MARK: - FeedViewCellPhotoDisplaying
 extension FeedViewCell: FeedViewCellPhotoDisplaying {
     func display(photo: Photo) {
+        self.photo = photo
+        
         let metadata = photo.metadata
 
         ownerNameView.text = metadata.ownerName
-
         dateTakenView.set(date: metadata.dateTaken)
-
         viewsView.set(views: metadata.views)
-
         tagsView.set(tags: metadata.tags)
         
         cellImageView.image = UIImage(data: photo.imageData)
