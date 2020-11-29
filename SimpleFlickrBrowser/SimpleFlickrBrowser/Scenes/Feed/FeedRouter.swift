@@ -24,7 +24,8 @@ final class FeedRouter: FeedRouting {
         }
 
         let fullImageViewController = fullImageFactory.createViewController(withInfoFrom: photo)
-
+        
+        fullImageViewController.modalPresentationStyle = .fullScreen
         sourceVC.present(fullImageViewController, animated: true)
     }
 }

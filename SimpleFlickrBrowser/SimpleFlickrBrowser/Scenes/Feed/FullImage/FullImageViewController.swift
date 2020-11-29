@@ -25,6 +25,9 @@ final class FullImageViewController: UIViewController {
 
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFit
+        
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(imageGestureRecognizer)
 
         return view
     }()
@@ -36,6 +39,14 @@ final class FullImageViewController: UIViewController {
         indicator.color = Style.FullImage.LoadingIndicator.color
 
         return indicator
+    }()
+
+    lazy var imageGestureRecognizer: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onImageTapped))
+
+        gesture.numberOfTapsRequired = 1
+
+        return gesture
     }()
 
     init(photo: Photo, interactor: FullImageInteracting) {
@@ -94,6 +105,10 @@ final class FullImageViewController: UIViewController {
             loadingIndicator.stopAnimating()
             imageView.isHidden = true
         }
+    }
+
+    @objc private func onImageTapped() {
+        self.dismiss(animated: true)
     }
 }
 
