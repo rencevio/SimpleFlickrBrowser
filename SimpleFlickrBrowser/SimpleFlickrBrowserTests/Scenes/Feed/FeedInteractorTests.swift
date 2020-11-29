@@ -7,23 +7,23 @@
 
 import XCTest
 
-class BrowserInteractorTests: XCTestCase {
-    var presenterMock: MockBrowserPresenter!
+class FeedInteractorTests: XCTestCase {
+    var presenterMock: MockFeedPresenter!
     var collectionFetcherMock: MockPhotoCollectionFetcher!
 
-    var sut: BrowserInteractor!
+    var sut: FeedInteractor!
 
     override func setUp() {
         super.setUp()
 
-        presenterMock = MockBrowserPresenter()
+        presenterMock = MockFeedPresenter()
         collectionFetcherMock = MockPhotoCollectionFetcher()
 
-        sut = BrowserInteractor(presenter: presenterMock, photoCollectionFetcher: collectionFetcherMock)
+        sut = FeedInteractor(presenter: presenterMock, photoCollectionFetcher: collectionFetcherMock)
     }
 
     func test_fetch_fetchAgainImmediatelyWithSameParams_fetchesAndPresentsOnlyOnce() {
-        let fetchRequest = BrowserModels.Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
+        let fetchRequest = FeedModels.Photos.Request(startFromPosition: 0, fetchAtMost: 10, size: .large, metadata: [])
 
         collectionFetcherMock.fetchPhotoResult = .success([])
 
@@ -37,7 +37,7 @@ class BrowserInteractorTests: XCTestCase {
     }
 
     func test_fetch_fetchAgainAfterFirstRequestFinished_fetchesAndPresentsTwice() {
-        let fetchRequest = BrowserModels.Photos.Request(startFromPosition: 0, fetchAtMost: 10, searchCriteria: "42")
+        let fetchRequest = FeedModels.Photos.Request(startFromPosition: 0, fetchAtMost: 10, size: .large, metadata: [])
 
         collectionFetcherMock.fetchPhotoResult = .success([])
 

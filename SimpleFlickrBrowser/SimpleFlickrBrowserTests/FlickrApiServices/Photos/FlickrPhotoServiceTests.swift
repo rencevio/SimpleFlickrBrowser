@@ -20,7 +20,13 @@ let validPhotosData = """
         "title": "Ford 6.4 Powerstroke EGR Delete Kit", 
         "ispublic": 1, 
         "isfriend": 0, 
-        "isfamily": 0 
+        "isfamily": 0,
+        "datetaken":"2020-11-27 17:30:40",
+        "datetakengranularity":"0",
+        "datetakenunknown":"0",
+        "ownername":"owner1",
+        "views":"1023",
+        "tags":"tag1 tag2 tag3"
       },
       { 
         "id": "49400436126", 
@@ -31,7 +37,13 @@ let validPhotosData = """
         "title": "BWO20V", 
         "ispublic": 1, 
         "isfriend": 0, 
-        "isfamily": 0
+        "isfamily": 0,
+        "datetaken":"2020-12-24 12:25:40",
+        "datetakengranularity":"0",
+        "datetakenunknown":"0",
+        "ownername":"owner2",
+        "views":"20",
+        "tags":"tag1 tag2 tag3"
       }
     ]
 }}

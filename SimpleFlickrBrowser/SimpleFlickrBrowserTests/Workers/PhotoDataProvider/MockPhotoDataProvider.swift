@@ -9,15 +9,15 @@ import Foundation
 
 final class MockPhotoDataProvider: PhotoDataProviding {
     var getPhotoDataCalls = [URL]()
-    var getPhotoDataResult: Result<Data, Error>?
+    var getPhotoDataResults = [Result<Data, Error>]()
 
     func getPhotoData(from url: URL, completion: @escaping Completion) {
-        guard let result = getPhotoDataResult else {
+        guard !getPhotoDataResults.isEmpty else {
             fatalError("\(#function) expectation was not set")
         }
 
         getPhotoDataCalls.append(url)
 
-        completion(result)
+        completion(getPhotoDataResults.popLast()!)
     }
 }

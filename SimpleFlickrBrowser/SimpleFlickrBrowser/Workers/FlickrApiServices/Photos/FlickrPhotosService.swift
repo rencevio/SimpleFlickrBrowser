@@ -9,8 +9,6 @@ protocol FlickrPhotosFetching {
     typealias Completion = (Result<[FlickrPhoto], Error>) -> Void
 
     func getRecent(page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion)
-
-    func search(matching text: String, page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion)
 }
 
 final class FlickrPhotosService: FlickrPhotosFetching {
@@ -27,21 +25,6 @@ final class FlickrPhotosService: FlickrPhotosFetching {
             method: .photosGetRecent,
             apiKey: apiKey,
             queryParameters: [
-                .page: String(page),
-                .perPage: String(photosPerPage),
-                .extras: getQueryParameters(for: metadata).map { $0.rawValue }.joined(separator: ",")
-            ]
-        )
-
-        fetchFrom(url: url, completion: completion)
-    }
-
-    func search(matching text: String, page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion) {
-        let url = FlickrApiURLResolver.build(
-            method: .photosSearch,
-            apiKey: apiKey,
-            queryParameters: [
-                .text: text,
                 .page: String(page),
                 .perPage: String(photosPerPage),
                 .extras: getQueryParameters(for: metadata).map { $0.rawValue }.joined(separator: ",")

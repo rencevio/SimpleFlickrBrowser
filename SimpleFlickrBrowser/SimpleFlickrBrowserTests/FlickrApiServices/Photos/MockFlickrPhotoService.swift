@@ -9,25 +9,12 @@ class MockFlickrPhotosService: FlickrPhotosFetching {
     var getRecentCalls = [(Int, Int)]()
     var getRecentResult: Result<[FlickrPhoto], Error>?
 
-    var searchCalls = [(String, Int, Int)]()
-    var searchResult: Result<[FlickrPhoto], Error>?
-
-    func getRecent(page: Int, photosPerPage: Int, completion: @escaping Completion) {
+    func getRecent(page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion) {
         guard let result = getRecentResult else {
             fatalError("\(#function) expectation was not set")
         }
 
         getRecentCalls.append((page, photosPerPage))
-
-        completion(result)
-    }
-
-    func search(matching text: String, page: Int, photosPerPage: Int, completion: @escaping Completion) {
-        guard let result = searchResult else {
-            fatalError("\(#function) expectation was not set")
-        }
-
-        searchCalls.append((text, page, photosPerPage))
 
         completion(result)
     }

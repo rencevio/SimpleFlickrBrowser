@@ -8,18 +8,18 @@
 import XCTest
 
 class MockPhotoCollectionFetcher: PhotoCollectionFetching {
-    var fetchPhotosCalls = [(Int, Int, String?)]()
+    var fetchPhotosCalls = [(Int, Int, PhotoParameters.Size)]()
     var fetchPhotoResult: Result<[Photo], Error>!
 
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
-                     matching searchCriteria: String?,
+                     withSize size: PhotoParameters.Size,
                      completion: @escaping Completion) {
         guard let result = fetchPhotoResult else {
             fatalError("\(#function) expectation was not set")
         }
 
-        fetchPhotosCalls.append((position, maxFetchCount, searchCriteria))
+        fetchPhotosCalls.append((position, maxFetchCount, size))
 
         completion(result)
     }

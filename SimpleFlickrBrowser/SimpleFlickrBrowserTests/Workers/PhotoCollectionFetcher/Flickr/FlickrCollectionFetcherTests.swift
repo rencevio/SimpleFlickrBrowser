@@ -11,30 +11,36 @@ class FlickrCollectionFetcherTests: XCTestCase {
     let expectationTimeout = 1.0
 
     var photosServiceMock: MockFlickrPhotosService!
+    var collectionDataFetcherMock: MockFlickrCollectionDataFetcher!
     var sut: FlickrCollectionFetcher!
 
     override func setUp() {
         super.setUp()
 
         photosServiceMock = MockFlickrPhotosService()
-        sut = FlickrCollectionFetcher(flickrPhotosService: photosServiceMock)
+        collectionDataFetcherMock = MockFlickrCollectionDataFetcher()
+        sut = FlickrCollectionFetcher(flickrPhotosService: photosServiceMock, collectionDataFetcher: collectionDataFetcherMock)
     }
 
-    func test_fetchPhotos_withoutSearchCriteria_fetchesRecentPhotos() {
+    func test_fetchPhotos_fetchesRecentPhotos() {
         let serviceFetchResult = [
-            FlickrPhoto(id: "1", secret: "1", server: "1", farm: 1),
-            FlickrPhoto(id: "2", secret: "2", server: "2", farm: 2),
+            FlickrPhoto(id: "1", secret: "1", server: "1", farm: 1, datetaken: "2020-11-22 21:21:29", ownername: "1", views: "1", tags: "1"),
+            FlickrPhoto(id: "2", secret: "2", server: "2", farm: 2, datetaken: "2012-10-20 04:02:01", ownername: "2", views: "2", tags: "2"),
         ]
+
+        let collectionDataFetchResult = Dictionary(uniqueKeysWithValues: serviceFetchResult.map { ($0.id, Data()) })
 
         let startingPosition = 0
         let maxFetchCount = 50
+        let photoSize = PhotoParameters.Size.large
 
         let fetchExpectation = XCTestExpectation(description: "Fetching photos")
         var fetchResult: [Photo]!
 
         photosServiceMock.getRecentResult = .success(serviceFetchResult)
+        collectionDataFetcherMock.fetchDataResult = collectionDataFetchResult
 
-        sut.fetchPhotos(startingFrom: startingPosition, fetchAtMost: maxFetchCount) { result in
+        sut.fetchPhotos(startingFrom: startingPosition, fetchAtMost: maxFetchCount, withSize: photoSize) { result in
             switch result {
             case let .success(photos):
                 fetchResult = photos
@@ -50,30 +56,25 @@ class FlickrCollectionFetcherTests: XCTestCase {
 
         XCTAssertEqual(photosServiceMock.getRecentCalls.count, 1)
         XCTAssertTrue(photosServiceMock.getRecentCalls[0] == (startingPosition + 1, maxFetchCount))
-
-        XCTAssertEqual(photosServiceMock.searchCalls.count, 0)
+        
+        XCTAssertEqual(collectionDataFetcherMock.fetchDataCalls.count, 1)
     }
 
-    func test_fetchPhotos_withSearchCriteria_searchesForPhotos() {
-        let serviceFetchResult = [
-            FlickrPhoto(id: "1", secret: "1", server: "1", farm: 1),
-            FlickrPhoto(id: "2", secret: "2", server: "2", farm: 2),
-        ]
+    func test_fetchPhotos_correctlyConvertsMetadata() {
+        let flickrPhoto = FlickrPhoto(id: "1", secret: "1", server: "1", farm: 1, datetaken: "2020-11-22 21:21:29", ownername: "1", views: "1", tags: "1")
 
-        let searchCriteria = "cars"
+        let collectionDataFetchResult = [flickrPhoto.id: Data()]
+
         let startingPosition = 0
         let maxFetchCount = 50
 
         let fetchExpectation = XCTestExpectation(description: "Fetching photos")
         var fetchResult: [Photo]!
 
-        photosServiceMock.searchResult = .success(serviceFetchResult)
+        photosServiceMock.getRecentResult = .success([flickrPhoto])
+        collectionDataFetcherMock.fetchDataResult = collectionDataFetchResult
 
-        sut.fetchPhotos(
-            startingFrom: startingPosition,
-            fetchAtMost: maxFetchCount,
-            matching: searchCriteria
-        ) { result in
+        sut.fetchPhotos(startingFrom: startingPosition, fetchAtMost: maxFetchCount, withSize: .large) { result in
             switch result {
             case let .success(photos):
                 fetchResult = photos
@@ -85,11 +86,10 @@ class FlickrCollectionFetcherTests: XCTestCase {
 
         wait(for: [fetchExpectation], timeout: expectationTimeout)
 
-        XCTAssertEqual(serviceFetchResult.map { $0.id }, fetchResult.map { $0.id })
-
-        XCTAssertEqual(photosServiceMock.searchCalls.count, 1)
-        XCTAssertTrue(photosServiceMock.searchCalls[0] == (searchCriteria, startingPosition + 1, maxFetchCount))
-
-        XCTAssertEqual(photosServiceMock.getRecentCalls.count, 0)
+        XCTAssertEqual(fetchResult.count, 1)
+        
+        let metadata = fetchResult[0].metadata
+        XCTAssertNotNil(metadata.dateTaken)
+        XCTAssertEqual(metadata.views, flickrPhoto.views.toInt()!)
     }
 }

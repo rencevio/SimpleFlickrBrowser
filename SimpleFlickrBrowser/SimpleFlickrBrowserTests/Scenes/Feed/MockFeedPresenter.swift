@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class MockBrowserPresenter: BrowserPresenting {
-    var presentPhotosCalls = [BrowserModels.Photos.Response]()
+final class MockFeedPresenter: FeedPresenting {
+    var presentPhotosCalls = [FeedModels.Photos.Response]()
 
-    func present(photos: BrowserModels.Photos.Response) {
+    func present(photos: FeedModels.Photos.Response) {
         presentPhotosCalls.append(photos)
     }
 }
