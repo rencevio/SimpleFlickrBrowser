@@ -19,7 +19,7 @@ final class FullImageInteractor: FullImageInteracting {
     }
 
     func fetch(image: FullImageModels.Image.Request) {
-        photoDataProvider.getPhotoData(from: image.url) { result in
+        photoDataProvider.getPhotoData(from: image.url, backgroundDownload: true) { result in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
                     return

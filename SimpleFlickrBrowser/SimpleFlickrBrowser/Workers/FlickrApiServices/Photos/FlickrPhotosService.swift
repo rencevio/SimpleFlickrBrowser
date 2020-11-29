@@ -35,7 +35,7 @@ final class FlickrPhotosService: FlickrPhotosFetching {
     }
 
     private func fetchFrom(url: URL, completion: @escaping Completion) {
-        httpClient.get(url: url) { [weak self] result in
+        httpClient.get(url: url, background: false) { [weak self] result in
             guard let self = self else { return }
 
             let photosResponse = self.parse(response: result)

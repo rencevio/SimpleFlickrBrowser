@@ -11,7 +11,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let dependencies = RootDependencies()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        let viewController = dependencies.createBrowserViewController()
         let viewController = dependencies.createFeedViewController()
     
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -21,5 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         return true
+    }
+
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> ()) {
+        BackgroundURLSession.shared.set(onBackgroundEventsHandledCallback: completionHandler)
     }
 }

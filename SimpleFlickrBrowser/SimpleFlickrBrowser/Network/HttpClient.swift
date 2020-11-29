@@ -7,7 +7,7 @@ import Foundation
 
 protocol HttpCommunicator {
     typealias Completion = (Result<Data, Http.RequestError>) -> Void
-    func get(url: URL, completion: @escaping Completion)
+    func get(url: URL, background: Bool, completion: @escaping Completion)
 }
 
 enum Http {
@@ -18,9 +18,12 @@ enum Http {
 
     final class Client: HttpCommunicator {
         private let urlSession = URLSession.shared
+        private let backgroundUrlSession = URLSession.sharedBackground
 
-        func get(url: URL, completion: @escaping Completion) {
-            let task = urlSession.dataTask(with: url) { data, _, error in
+        func get(url: URL, background: Bool, completion: @escaping Completion) {
+            let session: NetworkSession = background ? backgroundUrlSession : urlSession
+
+            session.getData(from: url) { data, error in
                 guard let data = data else {
                     if let error = error {
                         completion(.failure(.httpError(error)))
@@ -33,8 +36,6 @@ enum Http {
 
                 completion(.success(data))
             }
-
-            task.resume()
         }
     }
 }

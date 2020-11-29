@@ -8,5 +8,5 @@ import Foundation
 protocol PhotoDataRetrieving {
     typealias Completion = (Result<Data, Error>) -> Void
 
-    func retrieve(from url: URL, completion: @escaping Completion)
+    func retrieve(from url: URL, backgroundDownload: Bool, completion: @escaping Completion)
 }

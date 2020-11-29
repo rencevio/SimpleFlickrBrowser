@@ -25,7 +25,7 @@ final class FlickrCollectionDataFetcher: FlickrCollectionDataFetching {
         photos.forEach { photo in
             let imageURL = FlickrPhotoURLResolver.resolveUrl(for: photo, withSize: size)
 
-            dataProvider.getPhotoData(from: imageURL) { [operatingQueue] result in
+            dataProvider.getPhotoData(from: imageURL, backgroundDownload: false) { [operatingQueue] result in
                 operatingQueue.async {
                     switch result {
                     case let .success(data):

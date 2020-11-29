@@ -11,7 +11,7 @@ final class MockPhotoDataProvider: PhotoDataProviding {
     var getPhotoDataCalls = [URL]()
     var getPhotoDataResults = [Result<Data, Error>]()
 
-    func getPhotoData(from url: URL, completion: @escaping Completion) {
+    func getPhotoData(from url: URL, backgroundDownload: Bool, _ completion: @escaping Completion) {
         guard !getPhotoDataResults.isEmpty else {
             fatalError("\(#function) expectation was not set")
         }

@@ -8,7 +8,7 @@ import Foundation
 protocol PhotoDataProviding {
     typealias Completion = (Result<Data, Error>) -> Void
 
-    func getPhotoData(from url: URL, completion: @escaping Completion)
+    func getPhotoData(from url: URL, backgroundDownload: Bool, _ completion: @escaping Completion)
 }
 
 final class PhotoDataProvider: PhotoDataProviding {
@@ -22,7 +22,7 @@ final class PhotoDataProvider: PhotoDataProviding {
         self.retriever = retriever
     }
 
-    func getPhotoData(from url: URL, completion: @escaping Completion) {
+    func getPhotoData(from url: URL, backgroundDownload: Bool, _ completion: @escaping Completion) {
         operatingQueue.async { [weak self] in
             guard let self = self else { return }
 
@@ -32,13 +32,13 @@ final class PhotoDataProvider: PhotoDataProviding {
             case let .success(data):
                 completion(.success(data))
             case .failure:
-                self.retrievePhotoData(from: url, completion: completion)
+                self.retrievePhotoData(from: url, backgroundDownload: backgroundDownload, completion: completion)
             }
         }
     }
 
-    private func retrievePhotoData(from url: URL, completion: @escaping Completion) {
-        retriever.retrieve(from: url) { [weak cache] result in
+    private func retrievePhotoData(from url: URL, backgroundDownload: Bool, completion: @escaping Completion) {
+        retriever.retrieve(from: url, backgroundDownload: backgroundDownload) { [weak cache] result in
             switch result {
             case let .success(data):
                 cache?.store(data: data, for: url)

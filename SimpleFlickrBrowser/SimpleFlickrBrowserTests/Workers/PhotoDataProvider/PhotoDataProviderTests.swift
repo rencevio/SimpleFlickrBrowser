@@ -30,7 +30,7 @@ class PhotoDataProviderTests: XCTestCase {
 
         let fetchExpectation = XCTestExpectation(description: "Fetching photo")
 
-        sut.getPhotoData(from: url) { result in
+        sut.getPhotoData(from: url, backgroundDownload: false) { result in
             switch result {
             case let .success(data):
                 XCTAssertEqual(cachedData, data)
@@ -59,7 +59,7 @@ class PhotoDataProviderTests: XCTestCase {
 
         let fetchExpectation = XCTestExpectation(description: "Fetching photo")
 
-        sut.getPhotoData(from: url) { result in
+        sut.getPhotoData(from: url, backgroundDownload: false) { result in
             switch result {
             case let .success(data):
                 XCTAssertEqual(retrievedData, data)
