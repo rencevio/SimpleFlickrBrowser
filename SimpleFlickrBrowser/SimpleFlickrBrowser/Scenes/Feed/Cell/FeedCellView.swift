@@ -23,12 +23,9 @@ protocol FeedViewCellPhotoDisplaying {
 }
 
 final class FeedViewCell: UITableViewCell {
-    private enum ImageViewState {
-        case loading
-        case image(UIImage)
-    }
-
     static let identifier = "\(FeedViewCell.self)"
+    
+    var router: FeedRouting?
 
     private var imageHeightConstraint: NSLayoutConstraint?
 

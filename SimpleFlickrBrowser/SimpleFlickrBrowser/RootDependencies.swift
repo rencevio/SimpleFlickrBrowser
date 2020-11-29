@@ -16,7 +16,8 @@ final class RootDependencies {
     }
 
     func createFeedViewController() -> FeedViewController {
-        let feedFactory = FeedFactory()
+        let feedCellFactory = FeedCellFactory()
+        let feedFactory = FeedFactory(feedCellFactory: feedCellFactory)
         
         return feedFactory.createViewController(
                 photoCollectionFetcher: photoCollectionFetcher

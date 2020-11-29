@@ -14,8 +14,12 @@ protocol FeedDataSourcing: UITableViewDataSource {
 }
 
 final class FeedViewDataSource: NSObject {
+    private let feedCellConfigurator: FeedCellConfiguring
     private var photos = [Photo]()
-    private var images = [Photo.ID: UIImage]()
+
+    init(feedCellConfigurator: FeedCellConfiguring) {
+        self.feedCellConfigurator = feedCellConfigurator
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -34,6 +38,7 @@ extension FeedViewDataSource: UITableViewDataSource {
 
         let photo = photos[indexPath.section]
 
+        feedCellConfigurator.configure(cell)   
         cell.display(photo: photo)
         
         return cell

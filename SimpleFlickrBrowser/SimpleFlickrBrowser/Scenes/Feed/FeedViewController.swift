@@ -26,12 +26,14 @@ final class FeedViewController: UIViewController {
 
     private let interactor: FeedInteracting
     private let dataSource: FeedDataSourcing
+    private let router: FeedRouting
     
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero)
         
         view.alwaysBounceVertical = true
         view.backgroundColor = Style.ScreenBackground.color
+        view.showsVerticalScrollIndicator = false
         
         view.tableFooterView = UIView()
         view.separatorStyle = .none
@@ -49,9 +51,10 @@ final class FeedViewController: UIViewController {
         return control
     }()
 
-    init(interactor: FeedInteracting, dataSource: FeedDataSourcing) {
+    init(interactor: FeedInteracting, dataSource: FeedDataSourcing, router: FeedRouting) {
         self.interactor = interactor
         self.dataSource = dataSource
+        self.router = router
 
         super.init(nibName: nil, bundle: nil)
     }
