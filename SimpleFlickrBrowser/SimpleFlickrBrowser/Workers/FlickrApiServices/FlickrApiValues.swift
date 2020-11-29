@@ -28,7 +28,7 @@ enum FlickrApiValues {
         case medium = "c"
         case large = "b"
     }
-    
+
     enum PhotoMetadata: String {
         case views
         case tags

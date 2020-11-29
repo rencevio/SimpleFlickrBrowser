@@ -10,8 +10,8 @@ protocol FeedCellConfiguring {
 final class FeedCellConfigurator: FeedCellConfiguring {
     private let router: FeedRouting
 
-    init(router: FeedRouting) { 
-        self.router = router 
+    init(router: FeedRouting) {
+        self.router = router
     }
 
     func configure(_ cell: FeedViewCell) {

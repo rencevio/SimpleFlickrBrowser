@@ -14,7 +14,8 @@ class MockPhotoCollectionFetcher: PhotoCollectionFetching {
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
                      withSize size: PhotoParameters.Size,
-                     completion: @escaping Completion) {
+                     completion: @escaping Completion)
+    {
         guard let result = fetchPhotoResult else {
             fatalError("\(#function) expectation was not set")
         }

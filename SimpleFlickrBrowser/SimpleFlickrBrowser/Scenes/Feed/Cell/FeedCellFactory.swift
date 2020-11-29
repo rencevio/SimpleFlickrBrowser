@@ -8,7 +8,7 @@ protocol FeedCellCreating {
 }
 
 final class FeedCellFactory: FeedCellCreating {
-    func createFeedCellConfigurator(feedRouter: FeedRouting) -> FeedCellConfigurator { 
+    func createFeedCellConfigurator(feedRouter: FeedRouting) -> FeedCellConfigurator {
         FeedCellConfigurator(router: feedRouter)
     }
 }

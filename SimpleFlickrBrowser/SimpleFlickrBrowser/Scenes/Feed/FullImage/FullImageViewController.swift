@@ -13,7 +13,7 @@ protocol FullImageDisplaying: AnyObject {
 final class FullImageViewController: UIViewController {
     private let interactor: FullImageInteracting
     private let photo: Photo
-            
+
     private enum State {
         case loading
         case image(image: UIImage)
@@ -22,7 +22,7 @@ final class FullImageViewController: UIViewController {
 
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
-        
+
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFit
 
@@ -41,7 +41,7 @@ final class FullImageViewController: UIViewController {
     init(photo: Photo, interactor: FullImageInteracting) {
         self.photo = photo
         self.interactor = interactor
-        
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,23 +49,23 @@ final class FullImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() { 
+    override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = Style.FullImage.Background.color
-        
+
         setupImageView()
         setupLoadingIndicator()
-        
+
         set(state: .loading)
         interactor.fetch(image: FullImageModels.Image.Request(url: photo.fullSizeImageURL))
     }
 
     // MARK: - UI Setup
-    
+
     private func setupImageView() {
         view.addSubview(imageView)
-        
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true

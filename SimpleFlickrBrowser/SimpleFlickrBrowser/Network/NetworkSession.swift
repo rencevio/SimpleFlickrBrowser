@@ -7,7 +7,7 @@ import Foundation
 
 protocol NetworkSession {
     typealias Completion = (Data?, Error?) -> Void
-    
+
     func getData(from url: URL, _ completion: @escaping Completion)
 }
 

@@ -56,7 +56,7 @@ class FlickrCollectionFetcherTests: XCTestCase {
 
         XCTAssertEqual(photosServiceMock.getRecentCalls.count, 1)
         XCTAssertTrue(photosServiceMock.getRecentCalls[0] == (startingPosition + 1, maxFetchCount))
-        
+
         XCTAssertEqual(collectionDataFetcherMock.fetchDataCalls.count, 1)
     }
 
@@ -87,7 +87,7 @@ class FlickrCollectionFetcherTests: XCTestCase {
         wait(for: [fetchExpectation], timeout: expectationTimeout)
 
         XCTAssertEqual(fetchResult.count, 1)
-        
+
         let metadata = fetchResult[0].metadata
         XCTAssertNotNil(metadata.dateTaken)
         XCTAssertEqual(metadata.views, flickrPhoto.views.toInt()!)

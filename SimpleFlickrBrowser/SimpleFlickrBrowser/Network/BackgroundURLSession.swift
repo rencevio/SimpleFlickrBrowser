@@ -31,7 +31,7 @@ final class BackgroundURLSession {
     }()
 
     private init() {}
-    
+
     func set(onBackgroundEventsHandledCallback: @escaping () -> Void) {
         DispatchQueue.main.async { [weak self] in
             self?.onBackgroundEventsHandled = onBackgroundEventsHandledCallback
@@ -44,7 +44,7 @@ final class BackgroundURLSession {
                 guard let self = self, let taskCallback = self.runningTasks[task] else {
                     return
                 }
-                
+
                 self.runningTasks.removeValue(forKey: task)
 
                 taskCallback(data, error)
@@ -89,7 +89,7 @@ private final class BackgroundURLSessionDelegate: NSObject {
 // MARK: - URLSessionDelegate
 
 extension BackgroundURLSessionDelegate: URLSessionDelegate {
-    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+    func urlSessionDidFinishEvents(forBackgroundURLSession _: URLSession) {
         onAllTasksFinished()
     }
 }
@@ -97,7 +97,7 @@ extension BackgroundURLSessionDelegate: URLSessionDelegate {
 // MARK: - URLSessionTaskDelegate
 
 extension BackgroundURLSessionDelegate: URLSessionTaskDelegate {
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         onTaskFinished(task, nil, error)
     }
 }
@@ -105,7 +105,7 @@ extension BackgroundURLSessionDelegate: URLSessionTaskDelegate {
 // MARK: - URLSessionDownloadDelegate
 
 extension BackgroundURLSessionDelegate: URLSessionDownloadDelegate {
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+    func urlSession(_: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         do {
             let data = try Data(contentsOf: location)
 

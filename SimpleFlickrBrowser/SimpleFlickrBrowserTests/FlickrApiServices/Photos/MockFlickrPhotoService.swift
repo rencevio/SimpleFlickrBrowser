@@ -9,7 +9,7 @@ class MockFlickrPhotosService: FlickrPhotosFetching {
     var getRecentCalls = [(Int, Int)]()
     var getRecentResult: Result<[FlickrPhoto], Error>?
 
-    func getRecent(page: Int, photosPerPage: Int, includeMetadata metadata: [PhotoParameters.Metadata], completion: @escaping Completion) {
+    func getRecent(page: Int, photosPerPage: Int, includeMetadata _: [PhotoParameters.Metadata], completion: @escaping Completion) {
         guard let result = getRecentResult else {
             fatalError("\(#function) expectation was not set")
         }

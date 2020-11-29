@@ -10,7 +10,7 @@ protocol FeedDisplaying: AnyObject {
     func displayMore(photos: FeedModels.Photos.ViewModel)
 }
 
-private struct LayoutConstants {
+private enum LayoutConstants {
     static let photoSize = PhotoParameters.Size.medium
     static let itemSpacing: CGFloat = 30
 }
@@ -21,27 +21,27 @@ final class FeedViewController: UIViewController {
         .views,
         .dateTaken,
         .tags,
-        .ownerName
+        .ownerName,
     ]
 
     private let interactor: FeedInteracting
     private let dataSource: FeedDataSourcing
     private let router: FeedRouting
-    
+
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero)
-        
+
         view.alwaysBounceVertical = true
         view.backgroundColor = Style.ScreenBackground.color
         view.showsVerticalScrollIndicator = false
-        
+
         view.tableFooterView = UIView()
         view.separatorStyle = .none
         view.sectionHeaderHeight = LayoutConstants.itemSpacing
         view.estimatedRowHeight = 500
-        
+
         view.allowsSelection = false
-        
+
         return view
     }()
 
@@ -87,34 +87,34 @@ final class FeedViewController: UIViewController {
 
         dataSource.register(for: tableView)
     }
-    
+
     private func setupRefreshControl() {
         tableView.refreshControl = refreshControl
 
         refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
-    
+
     // MARK: - Data Requesting
-    
+
     private func requestNewPhotos() {
         interactor.fetch(
-                photos: FeedModels.Photos.Request(
-                        startFromPosition: 0,
-                        fetchAtMost: photosPerFetchRequest,
-                        size: LayoutConstants.photoSize,
-                        metadata: metadataToFetch
-                )
-        )   
+            photos: FeedModels.Photos.Request(
+                startFromPosition: 0,
+                fetchAtMost: photosPerFetchRequest,
+                size: LayoutConstants.photoSize,
+                metadata: metadataToFetch
+            )
+        )
     }
 
     func requestMorePhotos() {
         interactor.fetch(
-                photos: FeedModels.Photos.Request(
-                        startFromPosition: dataSource.photoCount,
-                        fetchAtMost: photosPerFetchRequest,
-                        size: LayoutConstants.photoSize,
-                        metadata: metadataToFetch
-                )
+            photos: FeedModels.Photos.Request(
+                startFromPosition: dataSource.photoCount,
+                fetchAtMost: photosPerFetchRequest,
+                size: LayoutConstants.photoSize,
+                metadata: metadataToFetch
+            )
         )
     }
 }
@@ -122,13 +122,14 @@ final class FeedViewController: UIViewController {
 // MARK: - UITableViewDelegate
 
 extension FeedViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? { 
+    public func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
         UIView()
     }
 
-    public func tableView(_ tableView: UITableView, 
-                          willDisplay cell: UITableViewCell, 
-                          forRowAt indexPath: IndexPath) {
+    public func tableView(_: UITableView,
+                          willDisplay _: UITableViewCell,
+                          forRowAt indexPath: IndexPath)
+    {
         let itemToDisplay = indexPath.section
 
         let loadedPhotosCount = dataSource.photoCount
@@ -156,7 +157,7 @@ extension FeedViewController: FeedDisplaying {
 
         dataSource.add(photos: photos.photos)
 
-        tableView.insertSections(IndexSet(integersIn: currentPhotoCount..<currentPhotoCount + photos.photos.count), with: .none)
+        tableView.insertSections(IndexSet(integersIn: currentPhotoCount ..< currentPhotoCount + photos.photos.count), with: .none)
     }
 }
 

@@ -9,7 +9,8 @@ final class FlickrApiURLResolver {
     static func build(method: FlickrApiValues.Method,
                       apiKey: String,
                       queryParameters: [FlickrApiValues.QueryParameter: String],
-                      format: String = "json") -> URL {
+                      format: String = "json") -> URL
+    {
         let defaultQueryParameters: [FlickrApiValues.QueryParameter: String] = [
             .method: method.rawValue,
             .apiKey: apiKey,

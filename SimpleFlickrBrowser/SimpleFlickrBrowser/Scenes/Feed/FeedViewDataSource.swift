@@ -25,22 +25,22 @@ final class FeedViewDataSource: NSObject {
 // MARK: - UITableViewDataSource
 
 extension FeedViewDataSource: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 
+    public func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         1
     }
 
-    public func numberOfSections(in tableView: UITableView) -> Int { 
+    public func numberOfSections(in _: UITableView) -> Int {
         photos.count
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { 
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueFeedCell(from: tableView, at: indexPath)
 
         let photo = photos[indexPath.section]
 
-        feedCellConfigurator.configure(cell)   
+        feedCellConfigurator.configure(cell)
         cell.display(photo: photo)
-        
+
         return cell
     }
 }

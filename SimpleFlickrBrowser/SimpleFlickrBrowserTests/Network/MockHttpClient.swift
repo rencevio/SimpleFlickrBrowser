@@ -11,7 +11,7 @@ class MockHttpClient: HttpCommunicator {
     var getCalls = [URL]()
     var getResult: Result<Data, Http.RequestError>!
 
-    func get(url: URL, background: Bool, completion: @escaping Completion) {
+    func get(url: URL, background _: Bool, completion: @escaping Completion) {
         guard let result = getResult else {
             fatalError("\(#function) expectation was not set")
         }

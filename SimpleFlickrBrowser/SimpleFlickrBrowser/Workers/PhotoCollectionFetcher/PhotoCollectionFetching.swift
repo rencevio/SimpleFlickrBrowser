@@ -9,6 +9,5 @@ protocol PhotoCollectionFetching {
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
                      withSize size: PhotoParameters.Size,
-                     completion: @escaping Completion
-    )
+                     completion: @escaping Completion)
 }

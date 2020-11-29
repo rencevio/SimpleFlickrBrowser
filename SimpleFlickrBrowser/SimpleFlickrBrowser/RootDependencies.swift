@@ -20,8 +20,8 @@ final class RootDependencies {
         let feedFactory = FeedFactory(feedCellFactory: feedCellFactory)
 
         return feedFactory.createViewController(
-                photoDataProvider: photoDataProvider,
-                photoCollectionFetcher: photoCollectionFetcher
+            photoDataProvider: photoDataProvider,
+            photoCollectionFetcher: photoCollectionFetcher
         )
     }
 }

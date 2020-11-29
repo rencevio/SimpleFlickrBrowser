@@ -23,10 +23,10 @@ class FeedPresenterTests: XCTestCase {
 
     func test_presentPhotos_startingFromZero_dataIsReset() {
         let photo = Photo(
-                id: "id",
-                imageData: Data(),
-                fullSizeImageURL: URL(string: "www.not-a-website.com")!,
-                metadata: Photo.Metadata(views: 0, tags: [], ownerName: "", dateTaken: Date())
+            id: "id",
+            imageData: Data(),
+            fullSizeImageURL: URL(string: "www.not-a-website.com")!,
+            metadata: Photo.Metadata(views: 0, tags: [], ownerName: "", dateTaken: Date())
         )
 
         sut.present(photos: FeedModels.Photos.Response(startingPosition: 0, photos: [photo]))
@@ -37,10 +37,10 @@ class FeedPresenterTests: XCTestCase {
 
     func test_presentPhotosTwice_startingFromNonZero_dataIsUpdated() {
         let photo = Photo(
-                id: "id", 
-                imageData: Data(), 
-                fullSizeImageURL: URL(string: "www.not-a-website.com")!, 
-                metadata: Photo.Metadata(views: 0, tags: [], ownerName: "", dateTaken: Date())
+            id: "id",
+            imageData: Data(),
+            fullSizeImageURL: URL(string: "www.not-a-website.com")!,
+            metadata: Photo.Metadata(views: 0, tags: [], ownerName: "", dateTaken: Date())
         )
 
         sut.present(photos: FeedModels.Photos.Response(startingPosition: 1, photos: [photo]))

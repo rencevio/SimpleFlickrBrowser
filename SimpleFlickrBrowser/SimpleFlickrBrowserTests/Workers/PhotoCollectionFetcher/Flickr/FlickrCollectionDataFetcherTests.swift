@@ -23,7 +23,7 @@ class FlickrCollectionDataFetcherTests: XCTestCase {
     func test_fetchData_somePhotosHaveNoImageData_returnsOnlyPhotosWithData() {
         let photosWithData = [
             FlickrPhoto(id: "1", secret: "1", server: "1", farm: 1, datetaken: "1", ownername: "1", views: "1", tags: "1"),
-            FlickrPhoto(id: "2", secret: "2", server: "2", farm: 2, datetaken: "2", ownername: "2", views: "2", tags: "2")
+            FlickrPhoto(id: "2", secret: "2", server: "2", farm: 2, datetaken: "2", ownername: "2", views: "2", tags: "2"),
         ]
         let photosWithoutData = [
             FlickrPhoto(id: "3", secret: "3", server: "3", farm: 3, datetaken: "3", ownername: "3", views: "3", tags: "3"),

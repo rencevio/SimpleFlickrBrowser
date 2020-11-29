@@ -6,7 +6,7 @@
 import Foundation.NSData
 
 final class FlickrCollectionDataFetcher: FlickrCollectionDataFetching {
-    let dataProvider: PhotoDataProviding;
+    let dataProvider: PhotoDataProviding
 
     private let operatingQueue = DispatchQueue(label: "\(FlickrCollectionDataFetcher.self)OperatingQueue")
 
@@ -14,11 +14,12 @@ final class FlickrCollectionDataFetcher: FlickrCollectionDataFetching {
         self.dataProvider = dataProvider
     }
 
-    // Completes with dictionary containing only successfully retrieved data for photos  
+    // Completes with dictionary containing only successfully retrieved data for photos
     func fetchData(
-            photos: [FlickrPhoto],
-            withSize size: PhotoParameters.Size, 
-            _ completion: @escaping ([Photo.ID: Foundation.Data]) -> ()) {
+        photos: [FlickrPhoto],
+        withSize size: PhotoParameters.Size,
+        _ completion: @escaping ([Photo.ID: Foundation.Data]) -> Void
+    ) {
         var photosToFetch = Set(photos.map { $0.id })
         var photosImageData = [Photo.ID: Data]()
 
@@ -35,7 +36,7 @@ final class FlickrCollectionDataFetcher: FlickrCollectionDataFetching {
                     }
 
                     photosToFetch.remove(photo.id)
-                    
+
                     if photosToFetch.isEmpty {
                         completion(photosImageData)
                     }

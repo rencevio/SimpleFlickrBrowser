@@ -14,7 +14,7 @@ final class MockFullImagePresenter: FullImagePresenting {
     func present(image: FullImageModels.Image.Response) {
         presentImageCalls.append(image)
     }
-    
+
     func presentError() {
         presentErrorCalls += 1
     }

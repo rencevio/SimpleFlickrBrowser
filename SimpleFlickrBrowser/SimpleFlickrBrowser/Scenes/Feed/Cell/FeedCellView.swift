@@ -5,7 +5,7 @@
 
 import UIKit
 
-private struct LayoutConstants {
+private enum LayoutConstants {
     static let ownerNameFontSize: CGFloat = 12
     static let tagsFontSize: CGFloat = 11
     static let viewsFontSize: CGFloat = 12
@@ -24,16 +24,17 @@ protocol FeedViewCellPhotoDisplaying {
 
 final class FeedViewCell: UITableViewCell {
     static let identifier = "\(FeedViewCell.self)"
-    
+
     var router: FeedRouting?
     var photo: Photo?
 
     private var imageHeightConstraint: NSLayoutConstraint?
 
     // MARK: - Subviews
+
     lazy var cellImageView: UIImageView = {
         let view = UIImageView()
-        
+
         view.contentMode = .scaleAspectFit
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(imageGestureRecognizer)
@@ -84,6 +85,7 @@ final class FeedViewCell: UITableViewCell {
     }()
 
     // MARK: - Init
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -107,13 +109,15 @@ final class FeedViewCell: UITableViewCell {
     }()
 
     override func systemLayoutSizeFitting(_ targetSize: CGSize,
-                                          withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
-                                          verticalFittingPriority: UILayoutPriority) -> CGSize {
+                                          withHorizontalFittingPriority _: UILayoutPriority,
+                                          verticalFittingPriority _: UILayoutPriority) -> CGSize
+    {
         viewWidthConstraint.constant = bounds.size.width
         return contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 1))
     }
 
     // MARK: - View Setup
+
     private func setupImageView() {
         contentView.addSubview(cellImageView)
 
@@ -167,28 +171,29 @@ final class FeedViewCell: UITableViewCell {
         imageHeightConstraint?.priority = .defaultHigh
         imageHeightConstraint?.isActive = true
     }
-    
+
     @objc private func onImageTapped() {
         guard let router = router, let photo = photo else {
             return
         }
-        
+
         router.displayFullImage(withInfoFrom: photo)
     }
 }
 
 // MARK: - FeedViewCellPhotoDisplaying
+
 extension FeedViewCell: FeedViewCellPhotoDisplaying {
     func display(photo: Photo) {
         self.photo = photo
-        
+
         let metadata = photo.metadata
 
         ownerNameView.text = metadata.ownerName
         dateTakenView.set(date: metadata.dateTaken)
         viewsView.set(views: metadata.views)
         tagsView.set(tags: metadata.tags)
-        
+
         cellImageView.image = UIImage(data: photo.imageData)
         layoutImage()
     }

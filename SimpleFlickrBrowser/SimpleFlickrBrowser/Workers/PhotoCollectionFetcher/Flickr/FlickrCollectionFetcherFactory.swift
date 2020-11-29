@@ -10,8 +10,8 @@ final class FlickrCollectionFetcherFactory: PhotoCollectionFetcherCreating {
         let collectionDataFetcher = FlickrCollectionDataFetcher(dataProvider: photoDataProvider)
 
         let fetcher = FlickrCollectionFetcher(
-                flickrPhotosService: flickrPhotosService, 
-                collectionDataFetcher: collectionDataFetcher
+            flickrPhotosService: flickrPhotosService,
+            collectionDataFetcher: collectionDataFetcher
         )
 
         return fetcher

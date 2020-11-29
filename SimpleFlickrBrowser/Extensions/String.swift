@@ -9,7 +9,7 @@ extension String {
     func toInt() -> Int? {
         Int(self)
     }
-    
+
     func toDate(formatter: DateFormatter) -> Date? {
         formatter.date(from: self)
     }

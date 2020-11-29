@@ -10,8 +10,8 @@ protocol FeedCreating {
 final class FeedFactory: FeedCreating {
     let feedCellFactory: FeedCellCreating
 
-    init(feedCellFactory: FeedCellCreating) { 
-        self.feedCellFactory = feedCellFactory 
+    init(feedCellFactory: FeedCellCreating) {
+        self.feedCellFactory = feedCellFactory
     }
 
     func createViewController(photoDataProvider: PhotoDataProviding, photoCollectionFetcher: PhotoCollectionFetching) -> FeedViewController {
@@ -21,9 +21,9 @@ final class FeedFactory: FeedCreating {
         let dataSource = createDataSource(router: router)
 
         let viewController = FeedViewController(
-                interactor: interactor, 
-                dataSource: dataSource, 
-                router: router
+            interactor: interactor,
+            dataSource: dataSource,
+            router: router
         )
 
         presenter.view = viewController
@@ -34,7 +34,7 @@ final class FeedFactory: FeedCreating {
 
     private func createDataSource(router: FeedRouting) -> FeedDataSourcing {
         let configurator = feedCellFactory.createFeedCellConfigurator(feedRouter: router)
-        
+
         return FeedViewDataSource(feedCellConfigurator: configurator)
     }
 

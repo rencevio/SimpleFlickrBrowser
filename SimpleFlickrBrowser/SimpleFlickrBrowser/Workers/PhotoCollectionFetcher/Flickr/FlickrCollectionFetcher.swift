@@ -17,15 +17,16 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
     func fetchPhotos(startingFrom position: Int,
                      fetchAtMost maxFetchCount: Int,
                      withSize size: PhotoParameters.Size,
-                     completion: @escaping Completion) {
+                     completion: @escaping Completion)
+    {
         let page = position / maxFetchCount + 1
         let metadata = PhotoParameters.Metadata.allCases
 
         flickrPhotosService.getRecent(
-                page: page,
-                photosPerPage: maxFetchCount,
-                includeMetadata: metadata,
-                completion: transformFetchResult(withSize: size, completion)
+            page: page,
+            photosPerPage: maxFetchCount,
+            includeMetadata: metadata,
+            completion: transformFetchResult(withSize: size, completion)
         )
     }
 
@@ -34,7 +35,7 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
             guard let self = self else {
                 return
             }
-            
+
             switch result {
             case let .success(photos):
                 self.transformValidPhotos(photos, withSize: size) { validPhotos in
@@ -48,7 +49,8 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
 
     private func transformValidPhotos(_ photos: [FlickrPhoto],
                                       withSize size: PhotoParameters.Size,
-                                      _ completion: @escaping ([Photo]) -> Void) {
+                                      _ completion: @escaping ([Photo]) -> Void)
+    {
         collectionDataFetcher.fetchData(photos: photos, withSize: size) { photosImageData in
             let transformedPhotos = photos.map { photo -> Photo? in
                 guard let metadata = extractMetadata(from: photo) else {
@@ -62,14 +64,14 @@ final class FlickrCollectionFetcher: PhotoCollectionFetching {
                 let fullSizeImageURL = FlickrPhotoURLResolver.resolveUrl(for: photo, withSize: .large)
 
                 return Photo(
-                        id: photo.id,
-                        imageData: imageData,
-                        fullSizeImageURL: fullSizeImageURL,
-                        metadata: metadata
+                    id: photo.id,
+                    imageData: imageData,
+                    fullSizeImageURL: fullSizeImageURL,
+                    metadata: metadata
                 )
             }
 
-            completion(transformedPhotos.compactMap { $0 })   
+            completion(transformedPhotos.compactMap { $0 })
         }
     }
 }
@@ -87,9 +89,9 @@ private func extractMetadata(from photo: FlickrPhoto) -> Photo.Metadata? {
     }
 
     return Photo.Metadata(
-            views: views,
-            tags: photo.tags.components(separatedBy: " "),
-            ownerName: photo.ownername,
-            dateTaken: dateTaken
+        views: views,
+        tags: photo.tags.components(separatedBy: " "),
+        ownerName: photo.ownername,
+        dateTaken: dateTaken
     )
 }

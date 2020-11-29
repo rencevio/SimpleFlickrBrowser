@@ -3,8 +3,8 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
-struct FeedModels {
-    struct Photos {
+enum FeedModels {
+    enum Photos {
         struct Request: Equatable {
             let startFromPosition: Int
             let fetchAtMost: Int

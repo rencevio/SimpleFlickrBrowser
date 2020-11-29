@@ -28,7 +28,7 @@ final class FullImageInteractor: FullImageInteracting {
                 switch result {
                 case let .success(data):
                     self.presenter.present(image: FullImageModels.Image.Response(image: data))
-                case .failure(_):
+                case .failure:
                     self.presenter.presentError()
                 }
             }

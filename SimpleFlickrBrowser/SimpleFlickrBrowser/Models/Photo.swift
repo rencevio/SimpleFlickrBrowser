@@ -3,9 +3,9 @@
 //
 // Copyright (c) 2020 rencevio. All rights reserved.
 
-import struct Foundation.URL
-import struct Foundation.Date
 import struct Foundation.Data
+import struct Foundation.Date
+import struct Foundation.URL
 
 struct Photo {
     struct Metadata {
@@ -14,7 +14,7 @@ struct Photo {
         let ownerName: String
         let dateTaken: Date
     }
-    
+
     typealias ID = String
 
     let id: ID

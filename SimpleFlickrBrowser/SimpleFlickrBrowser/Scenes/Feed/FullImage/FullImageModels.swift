@@ -6,7 +6,7 @@
 import Foundation.NSData
 
 struct FullImageModels {
-    struct Image {
+    enum Image {
         struct Request {
             let url: URL
         }

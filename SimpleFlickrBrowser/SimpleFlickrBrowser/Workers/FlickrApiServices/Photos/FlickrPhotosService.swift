@@ -27,7 +27,7 @@ final class FlickrPhotosService: FlickrPhotosFetching {
             queryParameters: [
                 .page: String(page),
                 .perPage: String(photosPerPage),
-                .extras: getQueryParameters(for: metadata).map { $0.rawValue }.joined(separator: ",")
+                .extras: getQueryParameters(for: metadata).map { $0.rawValue }.joined(separator: ","),
             ]
         )
 
@@ -64,10 +64,10 @@ final class FlickrPhotosService: FlickrPhotosFetching {
             return .failure(error)
         }
     }
-    
+
     private func getQueryParameters(for metadata: [PhotoParameters.Metadata]) -> [FlickrApiValues.PhotoMetadata] {
         metadata.map {
-            switch ($0) {
+            switch $0 {
             case .views:
                 return .views
             case .tags:

@@ -11,7 +11,7 @@ protocol FeedRouting: Routing {
 
 final class FeedRouter: FeedRouting {
     var sourceVC: UIViewController?
-    
+
     private let fullImageFactory: FullImageCreating
 
     init(fullImageFactory: FullImageCreating) {
@@ -22,9 +22,9 @@ final class FeedRouter: FeedRouting {
         guard let sourceVC = sourceVC else {
             return
         }
-        
+
         let fullImageViewController = fullImageFactory.createViewController(withInfoFrom: photo)
-        
+
         sourceVC.present(fullImageViewController, animated: true)
     }
 }
