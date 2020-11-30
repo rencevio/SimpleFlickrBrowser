@@ -12,7 +12,6 @@ protocol FeedDisplaying: AnyObject {
 
 private enum LayoutConstants {
     static let photoSize = PhotoParameters.Size.medium
-    static let itemSpacing: CGFloat = 30
 }
 
 final class FeedViewController: UIViewController {
@@ -37,7 +36,6 @@ final class FeedViewController: UIViewController {
 
         view.tableFooterView = UIView()
         view.separatorStyle = .none
-        view.sectionHeaderHeight = LayoutConstants.itemSpacing
         view.estimatedRowHeight = 500
 
         view.allowsSelection = false
@@ -122,15 +120,11 @@ final class FeedViewController: UIViewController {
 // MARK: - UITableViewDelegate
 
 extension FeedViewController: UITableViewDelegate {
-    public func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-        UIView()
-    }
-
     public func tableView(_: UITableView,
                           willDisplay _: UITableViewCell,
                           forRowAt indexPath: IndexPath)
     {
-        let itemToDisplay = indexPath.section
+        let itemToDisplay = indexPath.row
 
         let loadedPhotosCount = dataSource.photoCount
 
@@ -157,7 +151,7 @@ extension FeedViewController: FeedDisplaying {
 
         dataSource.add(photos: photos.photos)
 
-        tableView.insertSections(IndexSet(integersIn: currentPhotoCount ..< currentPhotoCount + photos.photos.count), with: .none)
+        tableView.insertRows(at: (0 ..< photos.photos.count).map { IndexPath(row: currentPhotoCount + $0, section: 0) }, with: .fade)
     }
 }
 

@@ -26,17 +26,13 @@ final class FeedViewDataSource: NSObject {
 
 extension FeedViewDataSource: UITableViewDataSource {
     public func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        1
-    }
-
-    public func numberOfSections(in _: UITableView) -> Int {
         photos.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueFeedCell(from: tableView, at: indexPath)
 
-        let photo = photos[indexPath.section]
+        let photo = photos[indexPath.row]
 
         feedCellConfigurator.configure(cell)
         cell.display(photo: photo)

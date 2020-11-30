@@ -14,6 +14,8 @@ private enum LayoutConstants {
     static let sideMarginRatio: CGFloat = 0.02
     static let tagsSideMarginRatio: CGFloat = 0.04
     static let topBottomMarginRatio: CGFloat = 0.2
+    
+    static let cellBottomPadding: CGFloat = 30
 
     static let dateTakenFormat = "MMM dd, yyyy"
 }
@@ -157,7 +159,7 @@ final class FeedViewCell: UITableViewCell {
 
         dateTakenView.translatesAutoresizingMaskIntoConstraints = false
         dateTakenView.topAnchor.constraint(equalTo: tagsView.bottomAnchor, constant: frame.height * LayoutConstants.topBottomMarginRatio).isActive = true
-        dateTakenView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        dateTakenView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -1 * LayoutConstants.cellBottomPadding).isActive = true
         dateTakenView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: frame.width * LayoutConstants.sideMarginRatio).isActive = true
     }
 
